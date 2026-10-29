@@ -33,12 +33,17 @@ func _ready() -> void:
 		image_data.fill(Color(0, 0, 0, 0))
 		create_rect(Vector2i(30, 30), Vector2i(500,60), Color(0, 0, 0, 1))
 		image = Image.create_from_data(map_size.x, map_size.y, false, Image.FORMAT_RGBAF, image_data.to_byte_array())
-
+		image_tex = ImageTexture.create_from_image(image)
+		sprite.texture = image_tex
+		
 	else:
 		
-		var temp:PackedByteArray = Global.passed_image.get_data()
-		image = Image.create_from_data(map_size.x, map_size.y, false, Image.FORMAT_RGBA8, temp)
-		image_data = rgba8_bytes_to_Color(temp)
+		image_data = rgba8_bytes_to_Color(Global.passed_image.get_data())
+		image = Image.create_from_data(map_size.x, map_size.y, false, Image.FORMAT_RGBAF, image_data.to_byte_array())
+		
+		#print(Global.passed_image)
+		
+		pass
 	
 	#image = Image.create_from_data(map_size.x, map_size.y, false, Image.FORMAT_RGBAF, image_data.to_byte_array())
 	image_tex = ImageTexture.create_from_image(image)

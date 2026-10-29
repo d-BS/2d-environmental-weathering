@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b0n7mii7ub7pq"
-path="res://.godot/imported/solid.png-dfaef4c5f03971b1dff8659ce9bb1bfe.ctex"
+uid="uid://dxhl1b0kl12cb"
+path="res://.godot/imported/sampleBlobTileset.svg-597003a85de89972fe82adffe65f545b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://basic_tileset/solid.png"
-dest_files=["res://.godot/imported/solid.png-dfaef4c5f03971b1dff8659ce9bb1bfe.ctex"]
+source_file="res://assets/sampleBlobTileset.svg"
+dest_files=["res://.godot/imported/sampleBlobTileset.svg-597003a85de89972fe82adffe65f545b.ctex"]
 
 [params]
 
@@ -38,3 +38,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=0.313
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dj2tqm21r406y"
-path="res://.godot/imported/slopeUR.png-2b84d3d5023b224a5d7e82b978dfae83.ctex"
+uid="uid://b0n7mii7ub7pq"
+path="res://.godot/imported/solid.png-4aeb2b19224d64e1c715f4c9a57eb27a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://basic_tileset/slopeUR.png"
-dest_files=["res://.godot/imported/slopeUR.png-2b84d3d5023b224a5d7e82b978dfae83.ctex"]
+source_file="res://assets/basic_tileset/solid.png"
+dest_files=["res://.godot/imported/solid.png-4aeb2b19224d64e1c715f4c9a57eb27a.ctex"]
 
 [params]
 

@@ -1,0 +1,99 @@
+[gd_scene format=3 uid="uid://rjs2kjr47yyx"]
+
+[ext_resource type="Texture2D" uid="uid://cixd5vqwjt061" path="res://assets/sampleDepthmap.png" id="1_tqyjf"]
+[ext_resource type="Script" uid="uid://byfnmdtg3k2eo" path="res://scripts/shadow_scene.gd" id="1_v8406"]
+[ext_resource type="PackedScene" uid="uid://dsg45u5q0w5ui" path="res://scenes/sampleController.tscn" id="2_v8406"]
+[ext_resource type="Shader" uid="uid://crocj03yirvue" path="res://scripts/shaders/bgDepthSample.gdshader" id="3_4wowh"]
+[ext_resource type="Texture2D" uid="uid://foalsjy2bilv" path="res://assets/SampleBg.png" id="4_m4rdw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yb2f2"]
+shader = ExtResource("3_4wowh")
+shader_parameter/depthmap = ExtResource("1_tqyjf")
+shader_parameter/light_direction = Vector2(-0.2, -0.2)
+shader_parameter/shadow_depth = 0.5
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_4sp5u"]
+
+[node name="ShadowScene" type="Node" unique_id=1408845973]
+script = ExtResource("1_v8406")
+shadow_mat = SubResource("ShaderMaterial_yb2f2")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=908019973]
+layer = -1
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=81596988]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Bg" type="ColorRect" parent="CanvasLayer/Control" unique_id=559468003]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="SampleDepthmap" type="Sprite2D" parent="." unique_id=534831347]
+visible = false
+texture = ExtResource("1_tqyjf")
+centered = false
+
+[node name="CharacterBody2D" parent="." unique_id=299721831 instance=ExtResource("2_v8406")]
+texture_repeat = 3
+position = Vector2(97, 223)
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=297412111]
+offset_left = -30.0
+offset_top = 239.0
+offset_right = 10.0
+offset_bottom = 279.0
+scale = Vector2(14.480001, 0.11999512)
+color = Color(0.12041847, 0.12041845, 0.12041845, 1)
+
+[node name="floor" type="StaticBody2D" parent="." unique_id=1067316081]
+position = Vector2(97, 223)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floor" unique_id=1891711156]
+position = Vector2(6, 17)
+shape = SubResource("WorldBoundaryShape2D_4sp5u")
+
+[node name="Node2D" type="Node2D" parent="." unique_id=434962548]
+
+[node name="Parallax2D2" type="Parallax2D" parent="Node2D" unique_id=469483872]
+material = SubResource("ShaderMaterial_yb2f2")
+scroll_scale = Vector2(0.25, 0.25)
+
+[node name="SampleBg2" type="Sprite2D" parent="Node2D/Parallax2D2" unique_id=2135748499]
+use_parent_material = true
+position = Vector2(140, 49)
+scale = Vector2(0.37594476, 0.38487872)
+texture = ExtResource("4_m4rdw")
+centered = false
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="Node2D" unique_id=645539366]
+copy_mode = 2
+
+[node name="Parallax2D" type="Parallax2D" parent="Node2D" unique_id=1942155162]
+material = SubResource("ShaderMaterial_yb2f2")
+scroll_scale = Vector2(0.5, 0.5)
+
+[node name="SampleBg" type="Sprite2D" parent="Node2D/Parallax2D" unique_id=919367802]
+use_parent_material = true
+texture = ExtResource("4_m4rdw")
+centered = false
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=80558335]
+anchor_mode = 0
+limit_enabled = false
+limit_left = 0
+limit_top = 0
+limit_right = 640
+limit_bottom = 360
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true

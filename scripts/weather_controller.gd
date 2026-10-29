@@ -59,12 +59,39 @@ func _on_step_pressed() -> void:
 	subviewport.size = Vector2i(640, 360)#tile_to_move.get_used_rect().size * tile_to_move.tile_set.tile_size
 	#print(tile_to_move.get_used_rect().size * tile_to_move.tile_set.tile_size)
 	
-	await RenderingServer.frame_post_draw
+	#await 
+	
+	
 	
 	var viewport_texture:ViewportTexture = subviewport.get_texture()
+	
+	
+	await RenderingServer.frame_post_draw
+	await RenderingServer.frame_post_draw
+	
+	print("This happened")
+	
 	var buffer_image:Image = viewport_texture.get_image()
 	
+	if buffer_image == null:
+		printerr("buffer image is null")
+		return
+	
+	#$CharacterBody2D/Sprite2D.texture = ImageTexture.create_from_image(buffer_image)
+	#get_tree().paused = true
+	
 	Global.passed_image = buffer_image
-	Global.set_scene("res://weathering.tscn")
+	#Global.passed_texture = viewport_texture
+	Global.set_scene("res://scenes/weathering.tscn")
+	
+	
+	
+	pass # Replace with function body.
+
+
+func _on_shadow_pressed() -> void:
+	
+	Global.set_scene("res://scenes/shadow_scene.tscn")
+	
 	
 	pass # Replace with function body.

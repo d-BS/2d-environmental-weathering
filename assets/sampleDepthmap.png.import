@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d3r7kjupa2pjm"
-path="res://.godot/imported/slopeUL.png-1fcd9c1256a93bf638e9d8fd1d9e40b0.ctex"
+uid="uid://cixd5vqwjt061"
+path="res://.godot/imported/sampleDepthmap.png-49d8395f31d57ffdffecd5e0b0709077.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://basic_tileset/slopeUL.png"
-dest_files=["res://.godot/imported/slopeUL.png-1fcd9c1256a93bf638e9d8fd1d9e40b0.ctex"]
+source_file="res://assets/sampleDepthmap.png"
+dest_files=["res://.godot/imported/sampleDepthmap.png-49d8395f31d57ffdffecd5e0b0709077.ctex"]
 
 [params]
 

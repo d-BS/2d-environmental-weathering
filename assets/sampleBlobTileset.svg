@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="512"
+   height="1536"
+   viewBox="0 0 512 1536"
+   version="1.1"
+   id="svg96"
+   sodipodi:docname="sampleBlobTileset.svg"
+   inkscape:version="1.4.2 (ebf0e940, 2025-05-08)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs96">
+    <filter
+       inkscape:label="Fill Background"
+       inkscape:menu="Fill and Transparency"
+       inkscape:menu-tooltip="Adds a colorizable opaque background"
+       style="color-interpolation-filters:sRGB;"
+       id="filter97">
+      <feFlood
+         result="result1"
+         flood-color="rgb(200,55,55)"
+         flood-opacity="1"
+         id="feFlood96" />
+      <feImage
+         xlink:href=""
+         result="result2"
+         id="feImage96" />
+      <feBlend
+         result="result4"
+         in2="result1"
+         mode="multiply"
+         id="feBlend96" />
+      <feMerge
+         result="result3"
+         id="feMerge97">
+        <feMergeNode
+           in="result1"
+           id="feMergeNode96" />
+        <feMergeNode
+           in="SourceGraphic"
+           id="feMergeNode97" />
+      </feMerge>
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="namedview96"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.3628025"
+     inkscape:cx="15.159763"
+     inkscape:cy="450.65841"
+     inkscape:window-width="1152"
+     inkscape:window-height="794"
+     inkscape:window-x="67"
+     inkscape:window-y="31"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg96" />
+  <!--
+Tile Classification S-CVE2-Blob, created by Tileset Creator.
+https://www.boristhebrave.com/permanent/23/03/tileset-creator/?autotile=Blob&cellType=Square&rotation=None&terrainCount=2&overlay=False&skipCornerTiles=False&drawStyle=Straight
+-->
+  <path
+     d="m 208,64 a 16,16 0 1 1 -1e-5,-0.016"
+     style="fill:#ff0000;stroke:#000000"
+     id="path3" />
+  <path
+     d="M 352,74.666665 V 53.333332 74.666665"
+     style="fill:#ff0000;stroke:#000000"
+     id="path5" />
+  <path
+     d="m 458.66667,32 h -21.33334 21.33334"
+     style="fill:#ff0000;stroke:#000000"
+     id="path7" />
+  <path
+     d="M 74.666665,160 H 53.333332 L 96,202.66666 v 0 -21.33333 L 74.666665,160"
+     style="fill:#ff0000;stroke:#000000"
+     id="path9" />
+  <path
+     d="m 160,181.33333 v 21.33334 -21.33334"
+     style="fill:#ff0000;stroke:#000000"
+     id="path11" />
+  <path
+     d="m 288,181.33333 v 21.33334 l 64,-1e-5 v 0 -21.33333 l -64,0"
+     style="fill:#ff0000;stroke:#000000"
+     id="path13" />
+  <path
+     d="M 458.66667,160 H 437.33333 L 416,181.33333 v 0 21.33334 L 458.66667,160"
+     style="fill:#ff0000;stroke:#000000"
+     id="path15" />
+  <path
+     d="M 74.666665,288 H 53.333332 L 32,309.33333 v 0 21.33334 l 64,0 v 0 -21.33334 L 74.666665,288"
+     style="fill:#ff0000;stroke:#000000"
+     id="path17" />
+  <path
+     d="m 181.33333,352 h 21.33334 -21.33334"
+     style="fill:#ff0000;stroke:#000000"
+     id="path19" />
+  <path
+     d="m 309.33333,352 h 21.33334 L 352,330.66667 v 0 -21.33334 L 309.33333,352"
+     style="fill:#ff0000;stroke:#000000"
+     id="path21" />
+  <path
+     d="m 458.66667,288 h -21.33334 l 0,64 v 0 h 21.33334 l 0,-64"
+     style="fill:#ff0000;stroke:#000000"
+     id="path23" />
+  <path
+     d="M 74.666665,416 H 53.333332 l 3e-6,64 v 0 H 74.666668 L 96,458.66667 v 0 -21.33334 L 74.666665,416"
+     style="fill:#ff0000;stroke:#000000"
+     id="path25" />
+  <path
+     d="m 160,437.33333 v 21.33334 L 181.33333,480 v 0 h 21.33334 L 160,437.33333"
+     style="fill:#ff0000;stroke:#000000"
+     id="path27" />
+  <path
+     d="m 288,437.33333 v 21.33334 L 309.33333,480 v 0 h 21.33334 L 352,458.66667 v 0 -21.33334 l -64,0"
+     style="fill:#ff0000;stroke:#000000"
+     id="path29" />
+  <path
+     d="M 458.66667,416 H 437.33333 L 416,437.33333 v 0 21.33334 L 437.33333,480 v 0 h 21.33334 l 0,-64"
+     style="fill:#ff0000;stroke:#000000"
+     id="path31" />
+  <path
+     d="M 74.666665,544 H 53.333332 L 32,565.33334 v 0 21.33333 L 53.333335,608 v 0 H 74.666668 L 96,586.66666 v 0 -21.33333 L 74.666665,544"
+     style="fill:#ff0000;stroke:#000000"
+     id="path33" />
+  <path
+     d="M 181.33333,608 H 224 V 565.33333 L 181.33333,608"
+     style="fill:#ff0000;stroke:#000000"
+     id="path35" />
+  <path
+     d="m 330.66667,544 h -21.33334 l 0,64 v 0 H 352 V 565.33333 L 330.66667,544"
+     style="fill:#ff0000;stroke:#000000"
+     id="path37" />
+  <path
+     d="m 416,565.33334 v 21.33333 L 437.33333,608 v 0 H 480 v -42.66667 l -64,10e-6"
+     style="fill:#ff0000;stroke:#000000"
+     id="path39" />
+  <path
+     d="M 74.666665,672 H 53.333332 L 32,693.33334 v 0 21.33333 L 53.333335,736 v 0 H 96 V 693.33333 L 74.666665,672"
+     style="fill:#ff0000;stroke:#000000"
+     id="path41" />
+  <path
+     d="M 224,714.66666 V 672 H 181.33333 L 224,714.66666"
+     style="fill:#ff0000;stroke:#000000"
+     id="path43" />
+  <path
+     d="m 288,693.33334 v 21.33333 l 64,-10e-6 v 0 V 672 H 309.33333 L 288,693.33334"
+     style="fill:#ff0000;stroke:#000000"
+     id="path45" />
+  <path
+     d="m 437.33333,736 h 21.33334 L 480,714.66666 v 0 V 672 h -42.66667 l 0,64"
+     style="fill:#ff0000;stroke:#000000"
+     id="path47" />
+  <path
+     d="m 32,821.33334 v 21.33333 L 53.333335,864 v 0 H 74.666668 L 96,842.66666 v 0 V 800 H 53.333332 L 32,821.33334"
+     style="fill:#ff0000;stroke:#000000"
+     id="path49" />
+  <path
+     d="M 181.33333,864 H 224 v -64 h -42.66667 l 0,64"
+     style="fill:#ff0000;stroke:#000000"
+     id="path51" />
+  <path
+     d="m 288,821.33334 v 21.33333 L 309.33333,864 v 0 H 352 V 800 H 309.33333 L 288,821.33334"
+     style="fill:#ff0000;stroke:#000000"
+     id="path53" />
+  <path
+     d="M 458.66667,800 H 416 v 42.66667 L 458.66667,800"
+     style="fill:#ff0000;stroke:#000000"
+     id="path55" />
+  <path
+     d="M 74.666665,928 H 32 v 42.66667 l 64,-10e-6 v 0 -21.33333 L 74.666665,928"
+     style="fill:#ff0000;stroke:#000000"
+     id="path57" />
+  <path
+     d="M 202.66666,928 H 160 v 42.66667 L 181.33333,992 v 0 h 21.33334 l -1e-5,-64"
+     style="fill:#ff0000;stroke:#000000"
+     id="path59" />
+  <path
+     d="M 330.66667,928 H 288 v 42.66667 L 309.33333,992 v 0 h 21.33334 L 352,970.66666 v 0 -21.33333 L 330.66667,928"
+     style="fill:#ff0000;stroke:#000000"
+     id="path61" />
+  <path
+     d="M 458.66667,928 H 416 v 42.66667 L 437.33333,992 v 0 H 480 V 949.33333 L 458.66667,928"
+     style="fill:#ff0000;stroke:#000000"
+     id="path63" />
+  <path
+     d="M 96,1098.6667 V 1056 H 32 v 42.6667 l 64,0"
+     style="fill:#ff0000;stroke:#000000"
+     id="path65" />
+  <path
+     d="m 181.33333,1120 h 21.33334 L 224,1098.6667 v 0 V 1056 h -64 v 42.6667 L 181.33333,1120"
+     style="fill:#ff0000;stroke:#000000"
+     id="path67" />
+  <path
+     d="M 309.33333,1120 H 352 v -64 h -64 v 42.6667 L 309.33333,1120"
+     style="fill:#ff0000;stroke:#000000"
+     id="path69" />
+  <path
+     d="M 416,1077.3333 V 1120 h 42.66667 L 416,1077.3333"
+     style="fill:#ff0000;stroke:#000000"
+     id="path71" />
+  <path
+     d="M 32,1205.3333 V 1248 H 74.666668 L 96,1226.6667 v 0 -21.3334 l -64,0"
+     style="fill:#ff0000;stroke:#000000"
+     id="path73" />
+  <path
+     d="M 202.66666,1184 H 181.33333 L 160,1205.3333 v 0 V 1248 h 42.66667 l -1e-5,-64"
+     style="fill:#ff0000;stroke:#000000"
+     id="path75" />
+  <path
+     d="M 330.66667,1184 H 309.33333 L 288,1205.3333 v 0 V 1248 h 42.66667 L 352,1226.6667 v 0 -21.3334 L 330.66667,1184"
+     style="fill:#ff0000;stroke:#000000"
+     id="path77" />
+  <path
+     d="M 416,1205.3333 V 1248 h 64 v -42.6667 l -64,0"
+     style="fill:#ff0000;stroke:#000000"
+     id="path79" />
+  <path
+     d="M 74.666665,1312 H 53.333332 L 32,1333.3333 v 0 V 1376 h 64 v -42.6667 L 74.666665,1312"
+     style="fill:#ff0000;stroke:#000000"
+     id="path81" />
+  <path
+     d="M 160,1333.3333 V 1376 h 42.66667 L 224,1354.6667 v 0 V 1312 H 181.33333 L 160,1333.3333"
+     style="fill:#ff0000;stroke:#000000"
+     id="path83" />
+  <path
+     d="M 288,1333.3333 V 1376 h 64 v -64 H 309.33333 L 288,1333.3333"
+     style="fill:#ff0000;stroke:#000000"
+     id="path85" />
+  <path
+     d="M 458.66667,1312 H 416 v 64 h 42.66667 l 0,-64"
+     style="fill:#ff0000;stroke:#000000"
+     id="path87" />
+  <path
+     d="M 74.666665,1440 H 32 v 64 H 74.666668 L 96,1482.6667 v 0 -21.3334 L 74.666665,1440"
+     style="fill:#ff0000;stroke:#000000"
+     id="path89" />
+  <path
+     d="M 202.66666,1440 H 160 v 64 h 64 v -42.6667 L 202.66666,1440"
+     style="fill:#ff0000;stroke:#000000"
+     id="path91" />
+  <path
+     d="M 352,1482.6667 V 1440 h -64 v 64 h 42.66667 L 352,1482.6667"
+     style="fill:#ff0000;stroke:#000000"
+     id="path93" />
+  <path
+     d="M 480,1482.6667 V 1440 h -64 v 64 h 64 v -21.3333"
+     style="fill:#ff0000;stroke:#000000"
+     id="path95" />
+  <g
+     id="g96"
+     style="display:none;opacity:0;filter:url(#filter97)" />
+</svg>
