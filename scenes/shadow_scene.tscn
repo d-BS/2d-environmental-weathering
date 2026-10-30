@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://cixd5vqwjt061" path="res://assets/sampleDepthmap.png" id="1_tqyjf"]
 [ext_resource type="Script" uid="uid://byfnmdtg3k2eo" path="res://scripts/shadow_scene.gd" id="1_v8406"]
 [ext_resource type="PackedScene" uid="uid://dsg45u5q0w5ui" path="res://scenes/sampleController.tscn" id="2_v8406"]
-[ext_resource type="Shader" uid="uid://crocj03yirvue" path="res://scripts/shaders/bgDepthSample.gdshader" id="3_4wowh"]
+[ext_resource type="Shader" uid="uid://crocj03yirvue" path="res://scripts/shaders/shadowReciever.gdshader" id="3_4wowh"]
 [ext_resource type="Texture2D" uid="uid://foalsjy2bilv" path="res://assets/SampleBg.png" id="4_m4rdw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yb2f2"]
@@ -20,6 +20,7 @@ shadow_mat = SubResource("ShaderMaterial_yb2f2")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=908019973]
 layer = -1
+visible = false
 
 [node name="Control" type="Control" parent="CanvasLayer" unique_id=81596988]
 layout_mode = 3

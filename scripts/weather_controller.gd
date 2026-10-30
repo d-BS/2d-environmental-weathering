@@ -69,7 +69,6 @@ func _on_step_pressed() -> void:
 	await RenderingServer.frame_post_draw
 	await RenderingServer.frame_post_draw
 	
-	print("This happened")
 	
 	var buffer_image:Image = viewport_texture.get_image()
 	
