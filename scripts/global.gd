@@ -1,10 +1,15 @@
 extends Node
 
 var current_scene:Node = null
-var passed_image:Image = null
+
+## Images which we pass between scenes
+var passed_image:Array[Image] = []
+
+var pLayer_collision_polys:Array[PackedVector2Array] = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	
 	current_scene = get_tree().root.get_child(-1)
 	pass # Replace with function body.
 

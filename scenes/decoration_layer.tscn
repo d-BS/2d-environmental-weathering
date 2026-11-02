@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://u0o22lyo7co6"]
+
+[ext_resource type="Script" uid="uid://ca1t5dmg7gv1d" path="res://scripts/decoration_layer.gd" id="1_l8cme"]
+
+[node name="DecorationLayer" type="CanvasLayer" unique_id=125172138]
+follow_viewport_enabled = true
+script = ExtResource("1_l8cme")

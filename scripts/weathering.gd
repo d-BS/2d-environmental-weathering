@@ -27,7 +27,7 @@ func _ready() -> void:
 	
 	#image_data[image_data.size()/2] = Vector4(0, 0, 0, 1)
 	
-	if Global.passed_image == null:
+	if Global.passed_image == []:
 		#map_size = Vector2i(640, 360)
 		image_data.resize(map_size.x*map_size.y)
 		image_data.fill(Color(0, 0, 0, 0))
@@ -38,7 +38,7 @@ func _ready() -> void:
 		
 	else:
 		
-		image_data = rgba8_bytes_to_Color(Global.passed_image.get_data())
+		image_data = rgba8_bytes_to_Color(Global.passed_image[0].get_data())
 		image = Image.create_from_data(map_size.x, map_size.y, false, Image.FORMAT_RGBAF, image_data.to_byte_array())
 		
 		#print(Global.passed_image)
@@ -52,12 +52,15 @@ func _ready() -> void:
 	sprite.offset = Vector2(map_size) / 2
 	
 	
-	
 	pass
 
 
 
 func _process(delta: float) -> void:
+	
+	#IMPORTANT!! Create a buffer for each of these to store the
+	#effect strength!!
+	#(only once thats working in the editor though
 	
 	if Input.is_action_just_pressed("ui_accept"):
 		
@@ -70,6 +73,11 @@ func _process(delta: float) -> void:
 		apply_rule(slime_step)
 		
 		pass
+	
+	if Input.is_action_just_pressed("arrow_down"):
+		
+		apply_rule(melt_step)
+	
 	
 	
 	_excecute_queued_update_tex()
@@ -151,8 +159,24 @@ func slime_step(i:int, img_temp:PackedColorArray):
 	
 	pass
 
+func melt_step(i:int, img_temp:PackedColorArray):
+	
+	
+	## if passed noise val is above certain amt, then we set
+	## our color to be the same as the one above us
+	
+	if(i < map_size.x):
+		return
+	
+	if 1 > floor(noise.get_noise_2dv(Vector2(i % map_size.x, i / map_size.x) + Vector2(map_size)) + 1):
+		img_temp[i] = image_data[i - map_size.x]
+	
+	pass
+
+
 func queue_update_tex():
 	update_tex = true
+
 func _excecute_queued_update_tex():
 	if update_tex:
 		image.set_data(map_size.x,  map_size.y, false, Image.FORMAT_RGBAF, image_data.to_byte_array())
@@ -183,4 +207,17 @@ func rgba8_bytes_to_Color(img:PackedByteArray) -> PackedColorArray:
 		pass
 	
 	return toReturn
+
+
+
+
+func _on_playtest_step_buttton_pressed() -> void:
 	
+	Global.passed_image = []
+	Global.passed_image.append([image])
+	
+	Global.set_scene("res://scenes/playtest_step.tscn")
+	
+	
+	
+	pass # Replace with function body.

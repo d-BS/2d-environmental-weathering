@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://cyf2746s8ukx2"]
+
+[ext_resource type="PackedScene" uid="uid://dsg45u5q0w5ui" path="res://scenes/sampleController.tscn" id="1_xl4gt"]
+[ext_resource type="Script" uid="uid://ca1t5dmg7gv1d" path="res://scripts/decoration_layer.gd" id="2_vtkje"]
+[ext_resource type="Texture2D" uid="uid://foalsjy2bilv" path="res://assets/SampleBg.png" id="3_ov8vd"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_o2fc2"]
+
+[node name="Shadow2Cam" type="Node" unique_id=745447352]
+
+[node name="CharacterBody2D" parent="." unique_id=299721831 instance=ExtResource("1_xl4gt")]
+texture_repeat = 3
+position = Vector2(99, 115)
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=967143952]
+offset_left = -30.0
+offset_top = 239.0
+offset_right = 10.0
+offset_bottom = 279.0
+scale = Vector2(14.480001, 0.11999512)
+color = Color(0.12041847, 0.12041845, 0.12041845, 1)
+
+[node name="floor" type="StaticBody2D" parent="." unique_id=1049445533]
+position = Vector2(97, 223)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floor" unique_id=1292587651]
+position = Vector2(6, 17)
+shape = SubResource("WorldBoundaryShape2D_o2fc2")
+
+[node name="Node2D" type="Node2D" parent="." unique_id=655709435]
+
+[node name="DecorationLayer2" type="CanvasLayer" parent="Node2D" unique_id=3117770]
+follow_viewport_enabled = true
+follow_viewport_scale = 0.6666667
+script = ExtResource("2_vtkje")
+distance = 1.5
+metadata/_custom_type_script = "uid://ca1t5dmg7gv1d"
+
+[node name="SampleBg" type="Sprite2D" parent="Node2D/DecorationLayer2" unique_id=772177823]
+use_parent_material = true
+texture = ExtResource("3_ov8vd")
+centered = false
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="Node2D" unique_id=1837252197]
+copy_mode = 2
+
+[node name="DecorationLayer" type="CanvasLayer" parent="Node2D" unique_id=1212980447]
+follow_viewport_enabled = true
+follow_viewport_scale = 0.8333333
+script = ExtResource("2_vtkje")
+distance = 1.2
+metadata/_custom_type_script = "uid://ca1t5dmg7gv1d"
+
+[node name="SampleBg2" type="Sprite2D" parent="Node2D/DecorationLayer" unique_id=97615884]
+use_parent_material = true
+position = Vector2(140, 49)
+scale = Vector2(0.37594476, 0.38487872)
+texture = ExtResource("3_ov8vd")
+centered = false
+
+[node name="PlayerCam" type="Camera2D" parent="." unique_id=979820100]
+anchor_mode = 0
+limit_enabled = false
+limit_left = 0
+limit_top = 0
+limit_right = 640
+limit_bottom = 360
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+
+[node name="ShadowCam" type="Camera2D" parent="." unique_id=508858820]
+position = Vector2(-234, -114)
+anchor_mode = 0

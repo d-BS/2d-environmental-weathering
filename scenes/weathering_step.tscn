@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://bc0owbdpju3ff"]
+
+[ext_resource type="Script" uid="uid://b1yn1gkwkxgts" path="res://scripts/weathering.gd" id="1_smolx"]
+[ext_resource type="Script" uid="uid://b2axqpxy75c0o" path="res://scripts/selection_box.gd" id="2_w1cr1"]
+[ext_resource type="Script" uid="uid://vbcvfxyjqo0w" path="res://scripts/collision_draw.gd" id="3_smolx"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_kdubu"]
+frequency = 0.0373
+
+[node name="Node" type="Node" unique_id=1948936913]
+script = ExtResource("1_smolx")
+noise = SubResource("FastNoiseLite_kdubu")
+
+[node name="Node2D" type="Node2D" parent="." unique_id=458178574]
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D" unique_id=1100330241]
+
+[node name="SelectionBox" type="Node2D" parent="." unique_id=958482507]
+script = ExtResource("2_w1cr1")
+
+[node name="DrawsColliders" type="Node2D" parent="." unique_id=474082555]
+script = ExtResource("3_smolx")
+
+[node name="PlaytestStepButtton" type="Button" parent="." unique_id=432080368]
+offset_left = 523.0
+offset_top = 8.0
+offset_right = 632.0
+offset_bottom = 39.0
+text = "playtest Step"
+
+[connection signal="box_made" from="SelectionBox" to="." method="_on_selection_box_made"]
+[connection signal="pressed" from="PlaytestStepButtton" to="." method="_on_playtest_step_buttton_pressed"]

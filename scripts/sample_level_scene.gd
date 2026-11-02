@@ -79,9 +79,9 @@ func _on_step_pressed() -> void:
 	#$CharacterBody2D/Sprite2D.texture = ImageTexture.create_from_image(buffer_image)
 	#get_tree().paused = true
 	
-	Global.passed_image = buffer_image
+	Global.passed_image = [buffer_image]
 	#Global.passed_texture = viewport_texture
-	Global.set_scene("res://scenes/weathering.tscn")
+	Global.set_scene("res://scenes/weathering_step.tscn")
 	
 	
 	

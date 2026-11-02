@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://ddkg8j4i5uopt"]
+
+[ext_resource type="Script" uid="uid://bdqxuj7ya2euj" path="res://scripts/tile_placement_step.gd" id="1_eokjl"]
+[ext_resource type="Script" uid="uid://ca1t5dmg7gv1d" path="res://scripts/decoration_layer.gd" id="3_673nn"]
+
+[node name="TilePlacementStep" type="Node2D" unique_id=980655069 node_paths=PackedStringArray("playerLayer", "tile_choice")]
+script = ExtResource("1_eokjl")
+playerLayer = NodePath("PlayerLayer")
+tile_choice = NodePath("UILayer/TileChoice")
+
+[node name="PlayerLayer" type="CanvasLayer" parent="." unique_id=2102152032]
+layer = -1
+follow_viewport_enabled = true
+script = ExtResource("3_673nn")
+metadata/_custom_type_script = "uid://ca1t5dmg7gv1d"
+
+[node name="UILayer" type="CanvasLayer" parent="." unique_id=258644706]
+
+[node name="TileChoice" type="OptionButton" parent="UILayer" unique_id=1203098408]
+anchors_preset = -1
+anchor_left = 0.8953125
+anchor_top = 0.022222223
+anchor_right = 0.9859375
+anchor_bottom = 0.08888889
+mouse_behavior_recursive = 2
+mouse_default_cursor_shape = 16
+item_count = 1
+popup/item_0/id = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="RasterizeButton" type="Button" parent="UILayer" unique_id=1041867474]
+anchors_preset = -1
+anchor_left = 0.696875
+anchor_top = 0.025
+anchor_right = 0.8802487
+anchor_bottom = 0.08700005
+offset_left = -3.0517578e-05
+offset_right = 45.64081
+offset_bottom = 8.679981
+scale = Vector2(0.71999514, 0.7200006)
+text = "rasterize / step to fx"
+metadata/_edit_use_anchors_ = true
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=842581421]
+anchor_mode = 0
+position_smoothing_enabled = true
+
+[connection signal="item_selected" from="UILayer/TileChoice" to="." method="_on_tile_choice_item_selected"]
+[connection signal="pressed" from="UILayer/RasterizeButton" to="." method="_on_rasterize_button_pressed"]

@@ -38,8 +38,8 @@ func _process(delta: float) -> void:
 	else:
 		$Camera2D.position = Vector2(0, 0)
 	
-	#var temp = light_direction
-	#just ignore the magic numbers for now
-	#temp += $Camera2D.get_screen_center_position() / get_viewport().get_visible_rect().size.y - Vector2(0.688889, 0.3)
-	#shadow_mat.set_shader_parameter("light_direction", temp)
+	
+	#we send in the camera position in terms of ScreenUV
+	var cam_pos:Vector2 = $Camera2D.get_screen_center_position() / Vector2(640, 360) - Vector2(.5, .5)
+	shadow_mat.set_shader_parameter("camera_position", cam_pos)
 	pass

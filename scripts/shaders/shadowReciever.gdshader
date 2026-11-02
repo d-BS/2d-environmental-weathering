@@ -1,8 +1,10 @@
 shader_type canvas_item;
 uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest;
 uniform sampler2D depthmap;
+
+/**This is stored in normalized coords, ie 0-1*/
 uniform vec2 light_direction;
-//uniform vec2 camera_position;
+uniform vec2 camera_position;
 uniform float shadow_depth;
 
 void vertex() {
@@ -26,10 +28,12 @@ void fragment() {
 		//this will just be float depth = COLOR.a
 		vec4 depth = texture(depthmap, UV);
 		
+		//this will be used to stabalize shadows - should be
+		//the difference between the scroll scale of the shadow
+		//caster & reciever
+		float magic_num = .25;
 		
-		//this should use UV, because we don't want this to care about
-		//where the camera is
-		vec2 sample_loc = SCREEN_UV; //* vec2(textureSize(TEXTURE, 0));
+		vec2 sample_loc = SCREEN_UV + camera_position * magic_num; //* vec2(textureSize(TEXTURE, 0));
 		
 		//sample_loc /= vec2(textureSize(screen_texture, 0));
 		sample_loc += light_direction * (1.0 - depth.r);
