@@ -2,6 +2,10 @@
 
 [ext_resource type="Texture2D" uid="uid://dxhl1b0kl12cb" path="res://assets/sampleBlobTileset.svg" id="1_7ruok"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4joye"]
+rough = true
+bounce = 0.3
+
 [sub_resource type="CanvasTexture" id="CanvasTexture_4sp5u"]
 diffuse_texture = ExtResource("1_7ruok")
 
@@ -346,6 +350,7 @@ texture_region_size = Vector2i(20, 20)
 [resource]
 tile_size = Vector2i(20, 20)
 physics_layer_0/collision_layer = 1
+physics_layer_0/physics_material = SubResource("PhysicsMaterial_4joye")
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "Terrain 0"
 terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)

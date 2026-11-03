@@ -1,6 +1,7 @@
 extends Node
 
 var current_scene:Node = null
+var new_scene:PackedScene = preload("res://scenes/sample_level_scene.tscn")
 
 ## Images which we pass between scenes
 var passed_image:Array[Image] = []
@@ -16,6 +17,10 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	
+	if Input.is_action_just_pressed("R"):
+		_deferred_reset_scene.call_deferred()
+	
 	pass
 
 
@@ -27,7 +32,12 @@ func set_scene(path:String):
 	
 func _deferred_set_scene(path:String):
 
-	var new_scene:PackedScene = ResourceLoader.load(path)
+	new_scene = ResourceLoader.load(path)
 	
+	current_scene = new_scene.instantiate()
+	get_tree().root.add_child(current_scene)
+
+func _deferred_reset_scene():
+	current_scene.queue_free()
 	current_scene = new_scene.instantiate()
 	get_tree().root.add_child(current_scene)

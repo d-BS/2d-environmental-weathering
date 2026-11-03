@@ -3,8 +3,12 @@
 [ext_resource type="PackedScene" uid="uid://dsg45u5q0w5ui" path="res://scenes/sampleController.tscn" id="1_xl4gt"]
 [ext_resource type="Script" uid="uid://ca1t5dmg7gv1d" path="res://scripts/decoration_layer.gd" id="2_vtkje"]
 [ext_resource type="Texture2D" uid="uid://foalsjy2bilv" path="res://assets/SampleBg.png" id="3_ov8vd"]
+[ext_resource type="Shader" uid="uid://b6aohdmc1tthd" path="res://scenes/test_vertex.gdshader" id="4_vtkje"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_o2fc2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fju4y"]
+shader = ExtResource("4_vtkje")
 
 [node name="Shadow2Cam" type="Node" unique_id=745447352]
 
@@ -52,6 +56,7 @@ distance = 1.2
 metadata/_custom_type_script = "uid://ca1t5dmg7gv1d"
 
 [node name="SampleBg2" type="Sprite2D" parent="Node2D/DecorationLayer" unique_id=97615884]
+material = SubResource("ShaderMaterial_fju4y")
 use_parent_material = true
 position = Vector2(140, 49)
 scale = Vector2(0.37594476, 0.38487872)

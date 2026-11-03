@@ -18,19 +18,19 @@ func _process(delta: float) -> void:
 	#mat.set_shader_parameter("weather_step", false)
 	
 	
-	if Input.is_action_pressed("arrow_down"):
+	if Input.is_action_pressed("S"):
 		
 		$Camera2D.position.y += camera_speed * delta
 		
-	if Input.is_action_pressed("arrow_up"):
+	if Input.is_action_pressed("W"):
 		
 		$Camera2D.position.y -= camera_speed * delta
 		
-	if Input.is_action_pressed("arrow_left"):
+	if Input.is_action_pressed("A"):
 		
 		$Camera2D.position.x -= camera_speed * delta
 		
-	if Input.is_action_pressed("arrow_right"):
+	if Input.is_action_pressed("D"):
 		
 		$Camera2D.position.x += camera_speed * delta
 		
@@ -92,5 +92,14 @@ func _on_shadow_pressed() -> void:
 	
 	Global.set_scene("res://scenes/shadow_scene.tscn")
 	
+	
+	pass # Replace with function body.
+
+
+func _on_sleep_pressed() -> void:
+	
+	if $CharacterBody2D.upright_strength == 0:
+		$CharacterBody2D.upright_strength = 70000
+	else: $CharacterBody2D.upright_strength = 0
 	
 	pass # Replace with function body.

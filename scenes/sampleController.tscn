@@ -1,18 +1,52 @@
 [gd_scene format=3 uid="uid://dsg45u5q0w5ui"]
 
 [ext_resource type="Script" uid="uid://dfmm3shc70ncl" path="res://scripts/character_body_2d.gd" id="1_su73m"]
-[ext_resource type="Texture2D" uid="uid://b5ci1g7rvpj0v" path="res://icon.svg" id="2_xkxm6"]
+[ext_resource type="Texture2D" uid="uid://b0n7mii7ub7pq" path="res://assets/basic_tileset/solid.png" id="3_dhhln"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dubn7"]
-radius = 9.0
-height = 18.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_smb3p"]
+size = Vector2(10, 10)
 
-[node name="CharacterBody2D" type="CharacterBody2D" unique_id=299721831]
+[sub_resource type="CircleShape2D" id="CircleShape2D_yb2f2"]
+radius = 4.0
+
+[node name="RigidBody2D" type="RigidBody2D" unique_id=2126776699 node_paths=PackedStringArray("feet")]
+mass = 0.5
 script = ExtResource("1_su73m")
+feet = NodePath("Feet")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=695182814]
-scale = Vector2(0.15341368, 0.16188881)
-texture = ExtResource("2_xkxm6")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1157682258]
+shape = SubResource("RectangleShape2D_smb3p")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1367421508]
-shape = SubResource("CapsuleShape2D_dubn7")
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=634219678]
+
+[node name="DampedSpringJoint2D" type="DampedSpringJoint2D" parent="." unique_id=120686098]
+node_a = NodePath("..")
+node_b = NodePath("../Feet")
+length = 20.0
+rest_length = 25.0
+stiffness = 64.0
+
+[node name="GrooveJoint2D" type="GrooveJoint2D" parent="." unique_id=621044473]
+position = Vector2(0, 1)
+node_a = NodePath("..")
+node_b = NodePath("../Feet")
+length = 18.0
+initial_offset = 18.0
+
+[node name="Feet" type="RigidBody2D" parent="." unique_id=118576602]
+position = Vector2(0, 20)
+mass = 0.75
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Feet" unique_id=825813230]
+shape = SubResource("CircleShape2D_yb2f2")
+
+[node name="BackFoot" type="Sprite2D" parent="Feet" unique_id=163868788]
+visible = false
+scale = Vector2(0.52260286, 0.52260286)
+texture = ExtResource("3_dhhln")
+
+[node name="FrontFoot" type="Sprite2D" parent="Feet" unique_id=1260776691]
+visible = false
+modulate = Color(2.284164, 2.284164, 2.284164, 1)
+scale = Vector2(0.52260286, 0.52260286)
+texture = ExtResource("3_dhhln")
