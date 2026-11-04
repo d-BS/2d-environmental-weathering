@@ -232,14 +232,15 @@ func _on_rasterize_button_pressed() -> void:
 	#query.transform.translated(Vector2(640, 360) / 2)
 	
 	
-	#maybe the max should be smaller than this, but that's a later problem
-	var collision_bodies:Array[Dictionary] = space_state.intersect_shape(query, playerLayerTiles.get_used_cells().size())
+	#maybe the max should be different than this, but that's a later problem
+	var collision_bodies:Array[Dictionary] = space_state.intersect_shape(query, 256)#playerLayerTiles.get_used_cells().size())
 	
 	for b in collision_bodies:
 		
 		var sub_shape:RID = PhysicsServer2D.body_get_shape(b.rid, b.shape)
 		
 		Global.pLayer_collision_polys.append(PhysicsServer2D.shape_get_data(sub_shape))
+		
 		
 		pass
 	

@@ -60,10 +60,10 @@ func _process(delta: float) -> void:
 	
 	if direction:
 		
-		var move_dir:Vector2 = Vector2(direction * SPEED, 0).rotated(rotation)
+		var move_dir:Vector2 = Vector2(direction * SPEED, 0)#.rotated(rotation)
 		
 		apply_central_force(move_dir)
-		feet.apply_torque(direction * SPEED)
+		#feet.apply_torque(direction * SPEED)
 		
 	
 	if Input.is_action_pressed("arrow_down"):

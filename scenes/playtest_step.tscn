@@ -1,6 +1,25 @@
 [gd_scene format=3 uid="uid://blj8epu7xsgmh"]
 
 [ext_resource type="Script" uid="uid://c20xvq202o2o8" path="res://scenes/playtest_step.gd" id="1_cryet"]
+[ext_resource type="PackedScene" uid="uid://dsg45u5q0w5ui" path="res://scenes/sampleController.tscn" id="2_0xmld"]
 
-[node name="PlaytestStep" type="Node" unique_id=669916466]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4sp5u"]
+
+[node name="PlaytestStep" type="Node" unique_id=669916466 node_paths=PackedStringArray("poly")]
 script = ExtResource("1_cryet")
+poly = NodePath("StaticBody2D/CollisionPolygon2D")
+
+[node name="RigidBody2D" parent="." unique_id=2126776699 instance=ExtResource("2_0xmld")]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=621546775]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1673243449]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=2010538094]
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=865671876]
+position = Vector2(0, 74)
+scale = Vector2(9.529866, 0.93543744)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2" unique_id=2057571045]
+shape = SubResource("RectangleShape2D_4sp5u")

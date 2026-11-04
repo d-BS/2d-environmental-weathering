@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 @onready var sprite:Sprite2D = $Node2D/Sprite2D
 @export var noise:FastNoiseLite
@@ -51,9 +51,16 @@ func _ready() -> void:
 	sprite.texture = image_tex
 	sprite.offset = Vector2(map_size) / 2
 	
+	queue_redraw()
 	
 	pass
 
+func _draw() -> void:
+	
+	for p in Global.pLayer_collision_polys:
+		draw_colored_polygon(p, Color.WHITE)
+	
+	
 
 
 func _process(delta: float) -> void:
@@ -82,7 +89,10 @@ func _process(delta: float) -> void:
 	
 	_excecute_queued_update_tex()
 	
+	
+	
 	pass
+
 
 
 ## currently has no bounds checking, also does not update image, only image_data
@@ -185,7 +195,7 @@ func _excecute_queued_update_tex():
 	update_tex = false
 
 
-func _on_selection_box_made(box: Rect2i) -> void:
+func _on_selection_box_box_made(box: Rect2i) -> void:
 	
 	create_rect(box.position, box.size, Color(.5, .5, .5, 1))
 	
@@ -214,7 +224,7 @@ func rgba8_bytes_to_Color(img:PackedByteArray) -> PackedColorArray:
 func _on_playtest_step_buttton_pressed() -> void:
 	
 	Global.passed_image = []
-	Global.passed_image.append([image])
+	Global.passed_image.append(image)
 	
 	Global.set_scene("res://scenes/playtest_step.tscn")
 	
