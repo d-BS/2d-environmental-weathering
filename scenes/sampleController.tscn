@@ -1,29 +1,125 @@
 [gd_scene format=3 uid="uid://dsg45u5q0w5ui"]
 
 [ext_resource type="Script" uid="uid://dfmm3shc70ncl" path="res://scripts/character_body_2d.gd" id="1_su73m"]
-[ext_resource type="Texture2D" uid="uid://b5ci1g7rvpj0v" path="res://icon.svg" id="2_dhhln"]
+[ext_resource type="Texture2D" uid="uid://gav87awsucms" path="res://assets/pixil-frame-0-2.png" id="2_dhhln"]
 [ext_resource type="Texture2D" uid="uid://b0n7mii7ub7pq" path="res://assets/basic_tileset/solid.png" id="3_dhhln"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_7ruok"]
-radius = 6.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yb2f2"]
 radius = 4.0
 
+[sub_resource type="Curve" id="Curve_qfwi1"]
+_data = [Vector2(0, 0.26793247), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_smb3p"]
+texture_mode = 1
+curve = SubResource("Curve_qfwi1")
+
+[sub_resource type="Curve" id="Curve_smb3p"]
+_limits = [0.0, 20.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 10.168776), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_4sp5u"]
+curve = SubResource("Curve_smb3p")
+
+[sub_resource type="Curve" id="Curve_ncdkx"]
+_limits = [0.0, 3.0, 0.0, 1.0]
+_data = [Vector2(0, 1.6392406), 0.0, 0.0, 0, 0, Vector2(1, 0.79113936), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_lc6pc"]
+curve = SubResource("Curve_ncdkx")
+
+[sub_resource type="Curve" id="Curve_dhhln"]
+_data = [Vector2(0, 0), 0.0, 2.2639067, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_dhhln"]
+curve = SubResource("Curve_dhhln")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4sp5u"]
+particle_flag_disable_z = true
+inherit_velocity_ratio = 0.3
+gravity = Vector3(0, -50, 0)
+scale_curve = SubResource("CurveTexture_4sp5u")
+scale_over_velocity_max = 10.0
+scale_over_velocity_curve = SubResource("CurveTexture_lc6pc")
+alpha_curve = SubResource("CurveTexture_smb3p")
+turbulence_enabled = true
+turbulence_noise_strength = 1.5
+turbulence_noise_scale = 8.0
+turbulence_influence_over_life = SubResource("CurveTexture_dhhln")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7ruok"]
+radius = 6.0
+
 [node name="RigidBody2D" type="RigidBody2D" unique_id=2126776699 node_paths=PackedStringArray("feet")]
 mass = 0.5
 continuous_cd = 2
+contact_monitor = true
+max_contacts_reported = 1
 script = ExtResource("1_su73m")
 feet = NodePath("Feet")
+
+[node name="Feet" type="RigidBody2D" parent="." unique_id=118576602]
+position = Vector2(0, 20)
+mass = 0.75
+continuous_cd = 2
+contact_monitor = true
+max_contacts_reported = 1
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Feet" unique_id=825813230]
+shape = SubResource("CircleShape2D_yb2f2")
+
+[node name="FrontFoot" type="Sprite2D" parent="Feet" unique_id=1260776691]
+modulate = Color(2.284164, 2.284164, 2.284164, 1)
+texture = ExtResource("3_dhhln")
+region_enabled = true
+region_rect = Rect2(121, 48, 9, 9)
+
+[node name="TorsoSprite" type="Node2D" parent="." unique_id=935650329]
+
+[node name="Base" type="Sprite2D" parent="TorsoSprite" unique_id=634219678]
+texture = ExtResource("2_dhhln")
+region_enabled = true
+region_rect = Rect2(120, 66, 16, 16)
+
+[node name="LgCog" type="Sprite2D" parent="TorsoSprite" unique_id=1257247055]
+position = Vector2(1.5, 1.5)
+texture = ExtResource("2_dhhln")
+region_enabled = true
+region_rect = Rect2(123, 89, 13, 13)
+
+[node name="SmCog" type="Sprite2D" parent="TorsoSprite" unique_id=2086335352]
+position = Vector2(-0.5, -4.5)
+texture = ExtResource("2_dhhln")
+region_enabled = true
+region_rect = Rect2(121, 48, 9, 9)
+
+[node name="Frame" type="Sprite2D" parent="TorsoSprite" unique_id=442173210]
+texture = ExtResource("2_dhhln")
+region_enabled = true
+region_rect = Rect2(156, 47, 16, 16)
+
+[node name="SmokeStack" type="Sprite2D" parent="TorsoSprite" unique_id=974685171]
+position = Vector2(-8, -1)
+texture = ExtResource("2_dhhln")
+region_enabled = true
+region_rect = Rect2(146, 48, 6, 14)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="TorsoSprite/SmokeStack" unique_id=1659350644]
+position = Vector2(-2, -7)
+amount = 64
+lifetime = 2.0
+collision_base_size = 0.0
+process_material = SubResource("ParticleProcessMaterial_4sp5u")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1157682258]
 shape = SubResource("CircleShape2D_7ruok")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=634219678]
-scale = Vector2(0.1498554, 0.1498554)
-texture = ExtResource("2_dhhln")
-
 [node name="DampedSpringJoint2D" type="DampedSpringJoint2D" parent="." unique_id=120686098]
+visible = false
 node_a = NodePath("..")
 node_b = NodePath("../Feet")
 length = 20.0
@@ -31,21 +127,9 @@ rest_length = 25.0
 stiffness = 64.0
 
 [node name="GrooveJoint2D" type="GrooveJoint2D" parent="." unique_id=621044473]
+visible = false
 position = Vector2(0, 1)
 node_a = NodePath("..")
 node_b = NodePath("../Feet")
 length = 18.0
 initial_offset = 18.0
-
-[node name="Feet" type="RigidBody2D" parent="." unique_id=118576602]
-position = Vector2(0, 20)
-mass = 0.75
-continuous_cd = 2
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Feet" unique_id=825813230]
-shape = SubResource("CircleShape2D_yb2f2")
-
-[node name="FrontFoot" type="Sprite2D" parent="Feet" unique_id=1260776691]
-modulate = Color(2.284164, 2.284164, 2.284164, 1)
-scale = Vector2(0.52260286, 0.52260286)
-texture = ExtResource("3_dhhln")

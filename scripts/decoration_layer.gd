@@ -25,6 +25,7 @@ func set_tiles():
 	
 	tiles = TileMapLayer.new()
 	tiles.tile_set = load("res://assets/blob_tile_set.tres")
+	
 	add_child(tiles)
 	
 	

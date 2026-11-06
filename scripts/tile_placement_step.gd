@@ -219,33 +219,36 @@ func _on_rasterize_button_pressed() -> void:
 	
 	
 	#here we extract the collision shape
-	
 	var space_state = PhysicsServer2D.space_get_direct_state(playerLayerTiles.get_world_2d().space)
 	var query = PhysicsShapeQueryParameters2D.new()
 	var q_shape = RectangleShape2D.new()
 	
-	#this should be whatever the viewport size was
-	q_shape.size = Vector2(640, 360) * 4
+	#this should be whatever the level size is 
+	q_shape.size = Vector2(640, 360) * 10
 	query.shape_rid = q_shape
 	#this may have to be updated
-	query.transform = playerLayerTiles.transform
-	#query.transform.translated(Vector2(640, 360) / 2)
+	query.transform = playerLayerTiles.global_transform
 	
 	
 	#maybe the max should be different than this, but that's a later problem
-	var collision_bodies:Array[Dictionary] = space_state.intersect_shape(query, 256)#playerLayerTiles.get_used_cells().size())
+	var collision_bodies:Array[Dictionary] = space_state.intersect_shape(query, playerLayerTiles.get_used_cells().size())
 	
 	for b in collision_bodies:
 		
 		var sub_shape:RID = PhysicsServer2D.body_get_shape(b.rid, b.shape)
+		var quad_pts:PackedVector2Array = PhysicsServer2D.shape_get_data(sub_shape)
+		var b_transform:Transform2D = PhysicsServer2D.body_get_state(b.rid, PhysicsServer2D.BODY_STATE_TRANSFORM)
 		
-		Global.pLayer_collision_polys.append(PhysicsServer2D.shape_get_data(sub_shape))
 		
+		var pts_to_return:PackedVector2Array = []
+		
+		for p in quad_pts:
+			pts_to_return.append(-p * b_transform * -1)
+		
+		Global.pLayer_collision_polys.append(pts_to_return)
 		
 		pass
 	
-	query.free.call_deferred()
-	q_shape.free.call_deferred()
 	
 	Global.set_scene("res://scenes/weathering_step.tscn")
 	

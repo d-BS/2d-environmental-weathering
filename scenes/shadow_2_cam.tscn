@@ -1,74 +1,50 @@
 [gd_scene format=3 uid="uid://cyf2746s8ukx2"]
 
-[ext_resource type="PackedScene" uid="uid://dsg45u5q0w5ui" path="res://scenes/sampleController.tscn" id="1_xl4gt"]
-[ext_resource type="Script" uid="uid://ca1t5dmg7gv1d" path="res://scripts/decoration_layer.gd" id="2_vtkje"]
-[ext_resource type="Texture2D" uid="uid://foalsjy2bilv" path="res://assets/SampleBg.png" id="3_ov8vd"]
+[ext_resource type="Shader" uid="uid://bbbt7glntkqrd" path="res://scripts/shaders/parallax.gdshader" id="1_pwni5"]
+[ext_resource type="Script" uid="uid://o4d3dpw3nqge" path="res://scenes/shadow_2_cam.gd" id="1_xl4gt"]
+[ext_resource type="Texture2D" uid="uid://b0n7mii7ub7pq" path="res://assets/basic_tileset/solid.png" id="2_xl4gt"]
+[ext_resource type="Script" uid="uid://bbh3jhl5lsyt" path="res://scripts/camera_2d.gd" id="4_vtkje"]
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_o2fc2"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ov8vd"]
+shader = ExtResource("1_pwni5")
 
-[node name="Shadow2Cam" type="Node" unique_id=745447352]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o2fc2"]
+shader = ExtResource("1_pwni5")
 
-[node name="CharacterBody2D" parent="." unique_id=299721831 instance=ExtResource("1_xl4gt")]
-texture_repeat = 3
-position = Vector2(99, 115)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vtkje"]
+shader = ExtResource("1_pwni5")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=967143952]
-offset_left = -30.0
-offset_top = 239.0
-offset_right = 10.0
-offset_bottom = 279.0
-scale = Vector2(14.480001, 0.11999512)
-color = Color(0.12041847, 0.12041845, 0.12041845, 1)
+[node name="Shadow2Cam" type="Node2D" unique_id=1748385976 node_paths=PackedStringArray("camera")]
+script = ExtResource("1_xl4gt")
+camera = NodePath("Camera2D")
 
-[node name="floor" type="StaticBody2D" parent="." unique_id=1049445533]
-position = Vector2(97, 223)
+[node name="Background" type="Sprite2D" parent="." unique_id=1930382306]
+material = SubResource("ShaderMaterial_ov8vd")
+instance_shader_parameters/layer = 0.5
+instance_shader_parameters/scale = Vector2(7.651954, 1.6556711)
+position = Vector2(-19, -16)
+scale = Vector2(7.651954, 1.6556711)
+texture = ExtResource("2_xl4gt")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="floor" unique_id=1292587651]
-position = Vector2(6, 17)
-shape = SubResource("WorldBoundaryShape2D_o2fc2")
+[node name="Midground" type="Sprite2D" parent="." unique_id=2021764904]
+modulate = Color(3.4457393, 3.4457393, 3.4457393, 1)
+material = SubResource("ShaderMaterial_o2fc2")
+instance_shader_parameters/layer = 1.0
+instance_shader_parameters/scale = Vector2(1, 1)
+texture = ExtResource("2_xl4gt")
 
-[node name="Node2D" type="Node2D" parent="." unique_id=655709435]
+[node name="Foreground" type="Sprite2D" parent="." unique_id=1430798711]
+modulate = Color(0.30507714, 0.30507714, 0.30507714, 1)
+material = SubResource("ShaderMaterial_vtkje")
+instance_shader_parameters/layer = 2.0
+instance_shader_parameters/scale = Vector2(1, 1)
+texture = ExtResource("2_xl4gt")
 
-[node name="DecorationLayer2" type="CanvasLayer" parent="Node2D" unique_id=3117770]
-follow_viewport_enabled = true
-follow_viewport_scale = 0.6666667
-script = ExtResource("2_vtkje")
-distance = 1.5
-metadata/_custom_type_script = "uid://ca1t5dmg7gv1d"
+[node name="Camera2D" type="Camera2D" parent="." unique_id=555660202]
+script = ExtResource("4_vtkje")
 
-[node name="SampleBg" type="Sprite2D" parent="Node2D/DecorationLayer2" unique_id=772177823]
-use_parent_material = true
-texture = ExtResource("3_ov8vd")
-centered = false
-
-[node name="BackBufferCopy" type="BackBufferCopy" parent="Node2D" unique_id=1837252197]
-copy_mode = 2
-
-[node name="DecorationLayer" type="CanvasLayer" parent="Node2D" unique_id=1212980447]
-follow_viewport_enabled = true
-follow_viewport_scale = 0.8333333
-script = ExtResource("2_vtkje")
-distance = 1.2
-metadata/_custom_type_script = "uid://ca1t5dmg7gv1d"
-
-[node name="SampleBg2" type="Sprite2D" parent="Node2D/DecorationLayer" unique_id=97615884]
-use_parent_material = true
-position = Vector2(140, 49)
-scale = Vector2(0.37594476, 0.38487872)
-texture = ExtResource("3_ov8vd")
-centered = false
-
-[node name="PlayerCam" type="Camera2D" parent="." unique_id=979820100]
-anchor_mode = 0
-limit_enabled = false
-limit_left = 0
-limit_top = 0
-limit_right = 640
-limit_bottom = 360
-position_smoothing_enabled = true
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
-
-[node name="ShadowCam" type="Camera2D" parent="." unique_id=508858820]
-position = Vector2(-234, -114)
-anchor_mode = 0
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1030737553]
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 5.0
+offset_bottom = 5.0

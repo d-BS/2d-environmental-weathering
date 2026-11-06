@@ -1,7 +1,6 @@
 extends Node2D
 
 
-var camera_speed:float = 100
 
 var size: Vector2i = Vector2i(100,100)
 
@@ -16,25 +15,6 @@ func _process(delta: float) -> void:
 	
 	
 	#mat.set_shader_parameter("weather_step", false)
-	
-	
-	if Input.is_action_pressed("S"):
-		
-		$Camera2D.position.y += camera_speed * delta
-		
-	if Input.is_action_pressed("W"):
-		
-		$Camera2D.position.y -= camera_speed * delta
-		
-	if Input.is_action_pressed("A"):
-		
-		$Camera2D.position.x -= camera_speed * delta
-		
-	if Input.is_action_pressed("D"):
-		
-		$Camera2D.position.x += camera_speed * delta
-		
-	
 	
 	
 	
@@ -81,6 +61,55 @@ func _on_step_pressed() -> void:
 	
 	Global.passed_image = [buffer_image]
 	#Global.passed_texture = viewport_texture
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	#here we extract the collision shape
+	var space_state = PhysicsServer2D.space_get_direct_state(tile_to_move.get_world_2d().space)
+	var query = PhysicsShapeQueryParameters2D.new()
+	var q_shape = RectangleShape2D.new()
+	
+	#this should be whatever the level size is 
+	q_shape.size = Vector2(640, 360) * 10
+	query.shape_rid = q_shape
+	#this may have to be updated
+	query.transform = tile_to_move.global_transform
+	
+	
+	#maybe the max should be different than this, but that's a later problem
+	var collision_bodies:Array[Dictionary] = space_state.intersect_shape(query, tile_to_move.get_used_cells().size())
+	
+	for b in collision_bodies:
+		
+		var sub_shape:RID = PhysicsServer2D.body_get_shape(b.rid, b.shape)
+		var quad_pts:PackedVector2Array = PhysicsServer2D.shape_get_data(sub_shape)
+		var b_transform:Transform2D = PhysicsServer2D.body_get_state(b.rid, PhysicsServer2D.BODY_STATE_TRANSFORM)
+		
+		
+		var pts_to_return:PackedVector2Array = []
+		
+		for p in quad_pts:
+			pts_to_return.append(-p * b_transform * -1)
+		
+		Global.pLayer_collision_polys.append(pts_to_return)
+		
+		pass
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	Global.set_scene("res://scenes/weathering_step.tscn")
 	
 	

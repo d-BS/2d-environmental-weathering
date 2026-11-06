@@ -20,19 +20,19 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	
 	
-	if Input.is_action_pressed("arrow_down"):
+	if Input.is_action_pressed("S"):
 		
 		$Camera2D.position = Vector2(0, cam_delta.y)
 		
-	elif Input.is_action_pressed("arrow_up"):
+	elif Input.is_action_pressed("W"):
 		
 		$Camera2D.position = Vector2(0, -cam_delta.y)
 		
-	elif Input.is_action_pressed("arrow_left"):
+	elif Input.is_action_pressed("A"):
 		
 		$Camera2D.position = Vector2(-cam_delta.x, 0)
 		
-	elif Input.is_action_pressed("arrow_right"):
+	elif Input.is_action_pressed("D"):
 		
 		$Camera2D.position = Vector2(cam_delta.x, 0)
 	else:
