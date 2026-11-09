@@ -63,6 +63,7 @@ script = ExtResource("1_su73m")
 feet = NodePath("Feet")
 
 [node name="Feet" type="RigidBody2D" parent="." unique_id=118576602]
+use_parent_material = true
 position = Vector2(0, 20)
 mass = 0.75
 continuous_cd = 2
@@ -70,45 +71,54 @@ contact_monitor = true
 max_contacts_reported = 1
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Feet" unique_id=825813230]
+use_parent_material = true
 shape = SubResource("CircleShape2D_yb2f2")
 
 [node name="FrontFoot" type="Sprite2D" parent="Feet" unique_id=1260776691]
 modulate = Color(2.284164, 2.284164, 2.284164, 1)
+use_parent_material = true
 texture = ExtResource("3_dhhln")
 region_enabled = true
 region_rect = Rect2(121, 48, 9, 9)
 
 [node name="TorsoSprite" type="Node2D" parent="." unique_id=935650329]
+use_parent_material = true
 
 [node name="Base" type="Sprite2D" parent="TorsoSprite" unique_id=634219678]
+use_parent_material = true
 texture = ExtResource("2_dhhln")
 region_enabled = true
 region_rect = Rect2(120, 66, 16, 16)
 
 [node name="LgCog" type="Sprite2D" parent="TorsoSprite" unique_id=1257247055]
+use_parent_material = true
 position = Vector2(1.5, 1.5)
 texture = ExtResource("2_dhhln")
 region_enabled = true
 region_rect = Rect2(123, 89, 13, 13)
 
 [node name="SmCog" type="Sprite2D" parent="TorsoSprite" unique_id=2086335352]
+use_parent_material = true
 position = Vector2(-0.5, -4.5)
 texture = ExtResource("2_dhhln")
 region_enabled = true
 region_rect = Rect2(121, 48, 9, 9)
 
 [node name="Frame" type="Sprite2D" parent="TorsoSprite" unique_id=442173210]
+use_parent_material = true
 texture = ExtResource("2_dhhln")
 region_enabled = true
 region_rect = Rect2(156, 47, 16, 16)
 
 [node name="SmokeStack" type="Sprite2D" parent="TorsoSprite" unique_id=974685171]
+use_parent_material = true
 position = Vector2(-8, -1)
 texture = ExtResource("2_dhhln")
 region_enabled = true
 region_rect = Rect2(146, 48, 6, 14)
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="TorsoSprite/SmokeStack" unique_id=1659350644]
+use_parent_material = true
 position = Vector2(-2, -7)
 amount = 64
 lifetime = 2.0
@@ -116,10 +126,13 @@ collision_base_size = 0.0
 process_material = SubResource("ParticleProcessMaterial_4sp5u")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1157682258]
+visible = false
+use_parent_material = true
 shape = SubResource("CircleShape2D_7ruok")
 
 [node name="DampedSpringJoint2D" type="DampedSpringJoint2D" parent="." unique_id=120686098]
 visible = false
+use_parent_material = true
 node_a = NodePath("..")
 node_b = NodePath("../Feet")
 length = 20.0
@@ -128,6 +141,7 @@ stiffness = 64.0
 
 [node name="GrooveJoint2D" type="GrooveJoint2D" parent="." unique_id=621044473]
 visible = false
+use_parent_material = true
 position = Vector2(0, 1)
 node_a = NodePath("..")
 node_b = NodePath("../Feet")

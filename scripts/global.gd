@@ -2,16 +2,24 @@ extends Node
 
 var current_scene:Node = null
 var new_scene:PackedScene = preload("res://scenes/sample_level_scene.tscn")
+var parallax_mat:ShaderMaterial = preload("res://assets/parallax_material.tres")
 
 ## Images which we pass between scenes
 var passed_image:Array[Image] = []
 
 var pLayer_collision_polys:Array[PackedVector2Array] = []
 
+var shadow_cast:PackedFloat32Array
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
 	current_scene = get_tree().root.get_child(-1)
+	
+	# this is 640 x 360
+	shadow_cast.resize(230400)
+	shadow_cast.fill(0)
+	
 	pass # Replace with function body.
 
 

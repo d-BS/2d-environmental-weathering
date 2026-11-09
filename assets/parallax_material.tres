@@ -1,0 +1,6 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://do3e73qlii6qi"]
+
+[ext_resource type="Shader" uid="uid://bbbt7glntkqrd" path="res://scripts/shaders/parallax.gdshader" id="1_bfqrh"]
+
+[resource]
+shader = ExtResource("1_bfqrh")

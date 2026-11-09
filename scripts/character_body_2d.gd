@@ -11,9 +11,12 @@ var upright_strength = 70000
 var head_on_ground:bool = false
 var foot_on_ground:bool = false
 
-const CAYOTE_MAX:float = .5
+
+const CAYOTE_MAX:float = .2
 var cayote_time:float = 0
 
+const JUMP_COOLDOWN:float = CAYOTE_MAX
+var j_cooldown_time:float = 0
 
 
 ## Different Cog types:
@@ -34,8 +37,8 @@ var cayote_time:float = 0
 
 func _ready() -> void:
 	
-	print("Sm rect:", $TorsoSprite/SmCog.region_rect)
-	print("Lg rect:", $TorsoSprite/LgCog.region_rect)
+	#print("Sm rect:", $TorsoSprite/SmCog.region_rect)
+	#print("Lg rect:", $TorsoSprite/LgCog.region_rect)
 	
 	pass
 
@@ -69,18 +72,28 @@ func _physics_process(delta: float) -> void:
 	
 	# Handle jump.
 	
+	var can_jump:bool = false
+	var wants_jump:bool = Input.is_action_just_pressed("arrow_up")
+	
 	#cayote timer
 	if cayote_time > 0: cayote_time -= delta
 	if cayote_time < 0: cayote_time = 0
 	
+	#jump cooldown
+	if j_cooldown_time > 0: j_cooldown_time -= delta
+	if j_cooldown_time < 0: j_cooldown_time = 0
+	
 	foot_on_ground = !feet.get_colliding_bodies().is_empty()
 	
 	if (foot_on_ground || head_on_ground): #and is_on_floor():
-		cayote_time = CAYOTE_MAX
-	else:
-		cayote_time = 0
 		
-	if Input.is_action_just_pressed("arrow_up") && cayote_time > 0:
+		cayote_time = CAYOTE_MAX
+		
+	
+	can_jump = cayote_time > 0 && j_cooldown_time == 0
+	
+	
+	if wants_jump && can_jump:
 		
 		var jump_str:float = JUMP_VELOCITY + clampf(linear_velocity.y, -50, 100)
 		
@@ -88,6 +101,7 @@ func _physics_process(delta: float) -> void:
 		apply_central_impulse(Vector2(0, jump_str))
 		
 		cayote_time = 0
+		j_cooldown_time = JUMP_COOLDOWN
 	
 	
 	# Get the input direction and handle the movement/deceleration.

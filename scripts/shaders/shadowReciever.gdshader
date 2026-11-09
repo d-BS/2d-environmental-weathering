@@ -7,6 +7,7 @@ uniform vec2 light_direction;
 uniform vec2 camera_position;
 uniform float shadow_depth;
 
+
 void vertex() {
 	// Called for every vertex the material is visible on.
 }

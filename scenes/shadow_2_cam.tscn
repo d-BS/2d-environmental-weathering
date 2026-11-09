@@ -1,50 +1,93 @@
 [gd_scene format=3 uid="uid://cyf2746s8ukx2"]
 
-[ext_resource type="Shader" uid="uid://bbbt7glntkqrd" path="res://scripts/shaders/parallax.gdshader" id="1_pwni5"]
 [ext_resource type="Script" uid="uid://o4d3dpw3nqge" path="res://scenes/shadow_2_cam.gd" id="1_xl4gt"]
+[ext_resource type="Material" uid="uid://do3e73qlii6qi" path="res://assets/parallax_material.tres" id="2_ov8vd"]
 [ext_resource type="Texture2D" uid="uid://b0n7mii7ub7pq" path="res://assets/basic_tileset/solid.png" id="2_xl4gt"]
+[ext_resource type="PackedScene" uid="uid://dsg45u5q0w5ui" path="res://scenes/sampleController.tscn" id="4_ov8vd"]
 [ext_resource type="Script" uid="uid://bbh3jhl5lsyt" path="res://scripts/camera_2d.gd" id="4_vtkje"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ov8vd"]
-shader = ExtResource("1_pwni5")
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4sp5u"]
+size = Vector2(327, 26)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_o2fc2"]
-shader = ExtResource("1_pwni5")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vtkje"]
-shader = ExtResource("1_pwni5")
-
-[node name="Shadow2Cam" type="Node2D" unique_id=1748385976 node_paths=PackedStringArray("camera")]
+[node name="Shadow2Cam" type="Node2D" unique_id=1748385976 node_paths=PackedStringArray("camera", "subviewport")]
+visibility_layer = 3
 script = ExtResource("1_xl4gt")
 camera = NodePath("Camera2D")
-
-[node name="Background" type="Sprite2D" parent="." unique_id=1930382306]
-material = SubResource("ShaderMaterial_ov8vd")
-instance_shader_parameters/layer = 0.5
-instance_shader_parameters/scale = Vector2(7.651954, 1.6556711)
-position = Vector2(-19, -16)
-scale = Vector2(7.651954, 1.6556711)
-texture = ExtResource("2_xl4gt")
-
-[node name="Midground" type="Sprite2D" parent="." unique_id=2021764904]
-modulate = Color(3.4457393, 3.4457393, 3.4457393, 1)
-material = SubResource("ShaderMaterial_o2fc2")
-instance_shader_parameters/layer = 1.0
-instance_shader_parameters/scale = Vector2(1, 1)
-texture = ExtResource("2_xl4gt")
+subviewport = NodePath("CanvasLayer/SubViewportContainer/SubViewport")
 
 [node name="Foreground" type="Sprite2D" parent="." unique_id=1430798711]
 modulate = Color(0.30507714, 0.30507714, 0.30507714, 1)
-material = SubResource("ShaderMaterial_vtkje")
+material = ExtResource("2_ov8vd")
 instance_shader_parameters/layer = 2.0
 instance_shader_parameters/scale = Vector2(1, 1)
 texture = ExtResource("2_xl4gt")
 
+[node name="BackBufferCopy2" type="BackBufferCopy" parent="." unique_id=414118399]
+copy_mode = 2
+
 [node name="Camera2D" type="Camera2D" parent="." unique_id=555660202]
 script = ExtResource("4_vtkje")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1030737553]
-offset_left = -5.0
-offset_top = -5.0
-offset_right = 5.0
-offset_bottom = 5.0
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1720354957]
+visibility_layer = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=293672140]
+visibility_layer = 3
+position = Vector2(20.5, -3)
+shape = SubResource("RectangleShape2D_4sp5u")
+
+[node name="ground" type="Sprite2D" parent="StaticBody2D" unique_id=1714671343]
+modulate = Color(0.30507714, 0.30507714, 0.30507714, 1)
+material = ExtResource("2_ov8vd")
+instance_shader_parameters/layer = 1.0
+instance_shader_parameters/scale = Vector2(1, 1)
+position = Vector2(20.5, -3)
+scale = Vector2(16.414982, 1.2776834)
+texture = ExtResource("2_xl4gt")
+
+[node name="RigidBody2D" parent="." unique_id=2126776699 instance=ExtResource("4_ov8vd")]
+material = ExtResource("2_ov8vd")
+position = Vector2(79, -105)
+
+[node name="Midground" type="Sprite2D" parent="." unique_id=2021764904]
+modulate = Color(3.4457393, 3.4457393, 3.4457393, 1)
+material = ExtResource("2_ov8vd")
+instance_shader_parameters/layer = 1.0
+instance_shader_parameters/scale = Vector2(1, 1)
+position = Vector2(-35, -26)
+texture = ExtResource("2_xl4gt")
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="." unique_id=897928771]
+copy_mode = 2
+
+[node name="Background" type="Sprite2D" parent="." unique_id=1930382306]
+material = ExtResource("2_ov8vd")
+instance_shader_parameters/layer = 0.5
+instance_shader_parameters/scale = Vector2(28.740837, 15.502649)
+position = Vector2(-19, -16)
+scale = Vector2(28.740837, 15.502649)
+texture = ExtResource("2_xl4gt")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=986488376]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer" unique_id=1000946638]
+anchors_preset = -1
+anchor_left = 0.015625
+anchor_top = 0.05277778
+anchor_right = 0.16352385
+anchor_bottom = 0.15480135
+offset_right = 545.3447
+offset_bottom = 475.2715
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.39811552, 0.28744087)
+metadata/_edit_use_anchors_ = true
+
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/SubViewportContainer" unique_id=277866062]
+handle_input_locally = false
+size = Vector2i(640, 360)
+render_target_update_mode = 4
+
+[node name="Camera2D" type="Camera2D" parent="CanvasLayer/SubViewportContainer/SubViewport" unique_id=657300785]
+visibility_layer = 3
+zoom = Vector2(1.001, 1.001)

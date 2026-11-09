@@ -88,6 +88,11 @@ R={
 ]
 }
 
+[layer_names]
+
+2d_render/layer_1="Display"
+2d_render/layer_2="Shadow"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
@@ -103,7 +108,11 @@ environment/defaults/default_clear_color=Color(0, 0, 0, 1)
 
 [shader_globals]
 
+light_pos={
+"type": "vec3",
+"value": Vector3(0, 0, 0)
+}
 camera_position={
-"type": "vec2",
-"value": Vector2(0, 0)
+"type": "vec3",
+"value": Vector3(0, 0, 0)
 }
