@@ -13,19 +13,22 @@ size = Vector2(327, 26)
 visibility_layer = 3
 script = ExtResource("1_xl4gt")
 camera = NodePath("Camera2D")
-subviewport = NodePath("CanvasLayer/SubViewportContainer/SubViewport")
+subviewport = NodePath("CanvasLayer/SubViewport")
 
-[node name="Foreground" type="Sprite2D" parent="." unique_id=1430798711]
-modulate = Color(0.30507714, 0.30507714, 0.30507714, 1)
+[node name="Background" type="Sprite2D" parent="." unique_id=1930382306]
 material = ExtResource("2_ov8vd")
-instance_shader_parameters/layer = 2.0
-instance_shader_parameters/scale = Vector2(1, 1)
+instance_shader_parameters/layer = 0.5
+instance_shader_parameters/scale = Vector2(28.740837, 15.502649)
+position = Vector2(-5, 18)
+scale = Vector2(62.499996, 40.350002)
 texture = ExtResource("2_xl4gt")
 
 [node name="BackBufferCopy2" type="BackBufferCopy" parent="." unique_id=414118399]
 copy_mode = 2
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=555660202]
+position_smoothing_enabled = true
+position_smoothing_speed = 8.0
 script = ExtResource("4_vtkje")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1720354957]
@@ -37,7 +40,7 @@ position = Vector2(20.5, -3)
 shape = SubResource("RectangleShape2D_4sp5u")
 
 [node name="ground" type="Sprite2D" parent="StaticBody2D" unique_id=1714671343]
-modulate = Color(0.30507714, 0.30507714, 0.30507714, 1)
+modulate = Color(2.284164, 2.284164, 2.284164, 1)
 material = ExtResource("2_ov8vd")
 instance_shader_parameters/layer = 1.0
 instance_shader_parameters/scale = Vector2(1, 1)
@@ -60,12 +63,11 @@ texture = ExtResource("2_xl4gt")
 [node name="BackBufferCopy" type="BackBufferCopy" parent="." unique_id=897928771]
 copy_mode = 2
 
-[node name="Background" type="Sprite2D" parent="." unique_id=1930382306]
+[node name="Foreground" type="Sprite2D" parent="." unique_id=1430798711]
+modulate = Color(0.30507714, 0.30507714, 0.30507714, 1)
 material = ExtResource("2_ov8vd")
-instance_shader_parameters/layer = 0.5
-instance_shader_parameters/scale = Vector2(28.740837, 15.502649)
-position = Vector2(-19, -16)
-scale = Vector2(28.740837, 15.502649)
+instance_shader_parameters/layer = 1.5
+instance_shader_parameters/scale = Vector2(1, 1)
 texture = ExtResource("2_xl4gt")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=986488376]
@@ -76,18 +78,77 @@ anchor_left = 0.015625
 anchor_top = 0.05277778
 anchor_right = 0.16352385
 anchor_bottom = 0.15480135
-offset_right = 545.3447
-offset_bottom = 475.2715
+offset_left = -10.0
+offset_top = -19.0
+offset_right = 535.3447
+offset_bottom = 304.2715
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.39811552, 0.28744087)
+scale = Vector2(0.5, 0.5)
 metadata/_edit_use_anchors_ = true
 
-[node name="SubViewport" type="SubViewport" parent="CanvasLayer/SubViewportContainer" unique_id=277866062]
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=1322615004]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VSlider" type="VSlider" parent="CanvasLayer/Control" unique_id=366153705]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 18.0
+offset_top = 23.0
+offset_right = 34.0
+offset_bottom = 273.0
+offset_transform_enabled = true
+focus_mode = 0
+min_value = -200.0
+max_value = 200.0
+
+[node name="HSlider" type="HSlider" parent="CanvasLayer/Control" unique_id=1530482905]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0984375
+anchor_top = 0.030555556
+anchor_right = 0.0984375
+anchor_bottom = 0.030555556
+offset_right = 200.0
+offset_bottom = 16.0
+focus_mode = 0
+min_value = -200.0
+max_value = 200.0
+metadata/_edit_use_anchors_ = true
+
+[node name="DSlider" type="VSlider" parent="CanvasLayer/Control" unique_id=663845339]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 606.0
+offset_top = 23.0
+offset_right = 622.0
+offset_bottom = 273.0
+offset_transform_enabled = true
+focus_mode = 0
+min_value = -10.0
+max_value = 0.0
+step = 0.2
+
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer" unique_id=277866062]
 handle_input_locally = false
+snap_2d_transforms_to_pixel = true
+snap_2d_vertices_to_pixel = true
+use_hdr_2d = true
+canvas_item_default_texture_filter = 0
 size = Vector2i(640, 360)
 render_target_update_mode = 4
 
-[node name="Camera2D" type="Camera2D" parent="CanvasLayer/SubViewportContainer/SubViewport" unique_id=657300785]
+[node name="Camera2D" type="Camera2D" parent="CanvasLayer/SubViewport" unique_id=657300785]
 visibility_layer = 3
+position = Vector2(290, 222)
+anchor_mode = 0
 zoom = Vector2(1.001, 1.001)
+
+[connection signal="value_changed" from="CanvasLayer/Control/VSlider" to="." method="_on_v_slider_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/Control/HSlider" to="." method="_on_h_slider_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/Control/DSlider" to="." method="_on_d_slider_value_changed"]
