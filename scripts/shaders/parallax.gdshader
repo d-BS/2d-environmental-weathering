@@ -7,6 +7,8 @@ uniform sampler2D shadowtex : repeat_disable, filter_nearest;
 
 uniform float focal_layer = 1.0;
 uniform vec3 shadow_strength = vec3(0.1, 0.1, 0.1);
+uniform vec4 fog : source_color = vec4(.75, .75, .75, 1.0);
+uniform float fog_strength;
 
 instance uniform float layer = 1.0;
 instance uniform vec2 scale = vec2(1.0, 1.0);
@@ -14,8 +16,10 @@ instance uniform vec2 scale = vec2(1.0, 1.0);
 //0 false, 1 true
 varying float shadow_pass;
 varying vec2 light_uv;
+varying mat4 model_matrix;
+varying vec2 vertex_pos;
 
-vec2 layer_transform(vec2 v, vec3 eye){
+vec2 layer_transform(vec2 v, vec3 eye, float intralayer_depth){
 	
 	
 	//s(layer) = layer / (1 - layer * z)
@@ -24,13 +28,23 @@ vec2 layer_transform(vec2 v, vec3 eye){
 	// ->
 	//s_norm = = layer * (1 - focal * z) / (focal * (1 - layer * z))
 	
-	float d_layer = 1.0 - layer * eye.z;
+	
+	
+	//scales down to the scale of change we're looking for
+	//ill replace this with real math later
+	intralayer_depth *= .1;
+	
+	//scales the change once again w the layer scale, moves to layer loc
+	intralayer_depth *= layer;
+	intralayer_depth += layer;
+	
+	float d_layer = 1.0 - intralayer_depth * eye.z;
 	float d_focal = 1.0 - focal_layer * eye.z;
 
 	// if eye at or past layer, sweep under the rug
 	if (d_layer < 1e-4 || d_focal < 1e-4) return vec2(1e6);
 
-	float s = (layer * d_focal) / (focal_layer * d_layer);
+	float s = (intralayer_depth * d_focal) / (focal_layer * d_layer);
 	vec2 c = eye.xy / scale;
 	
 	// v*s + c*(1 - s)
@@ -49,11 +63,15 @@ void vertex() {
 	vec3 eye = shadow_pass > 0.5 ? light_pos : camera_position;
 	
 	
-	vec2 lw = (MODEL_MATRIX * vec4(layer_transform(VERTEX, light_pos), 0.0, 1.0)).xy;
-	light_uv = (lw - camera_position.xy) / vec2(640.0, 360.0) + 0.5;
-
-	VERTEX = layer_transform(VERTEX, eye);
-
+	//vec2 lw = (MODEL_MATRIX * vec4(layer_transform(VERTEX, light_pos), 0.0, 1.0)).xy;
+	//light_uv = (lw - camera_position.xy) / vec2(640.0, 360.0) + 0.5;
+	model_matrix = MODEL_MATRIX;
+	vertex_pos = VERTEX;
+	
+	
+	VERTEX = layer_transform(VERTEX, eye, 0.0);
+	
+	
 }
 
 void fragment() {
@@ -67,17 +85,37 @@ void fragment() {
 		if (COLOR.a < 0.1)
 			discard;
 		COLOR = vec4(layer, 0.0, 0.0, 1.0);
+		
+	
 	}
 	//this branch is for the main viewport
 	else {
 		
+		
+		//in the future, the COLOR.a channel will store intralayer_depth
+		//for now, well just say darker pixels are futher back
+		//range should be -1 <= ilDepth <= 1
+		float il_depth = 0.0;//(COLOR.r + COLOR.g + COLOR.b) / 1.5 - 1.0;
+		
+		vec2 lw = (model_matrix * vec4(layer_transform(vertex_pos, light_pos, il_depth), 0.0, 1.0)).xy;
+		light_uv = (lw - camera_position.xy) / vec2(640.0, 360.0) + 0.5;
+		
+		
 		//if light uv would grab outside shadowtex, we just say there'll be 
-		//no shadows. Otherwise, we grab from shadowtex
+		//no shadows. Otherwise, we grab from shadowtex.
+		//maybe this will be more sophisticated in the future, but this is
+		//good enough for now
 		float occluded = (clamp(light_uv, vec2(0.0), vec2(1.0)) != light_uv)
 						? 0.0 : texture(shadowtex, light_uv).r;
 		
 		if (occluded > layer + shadow_bias)
 			COLOR.rgb *= shadow_strength;
+		//COLOR.a = COLOR.a > .5 ? 1.0 : 0.0;
+		
+		
+		COLOR = (fog * fog_strength + COLOR * layer) / (fog_strength + layer);
+		
+		
 	}
 }
 
