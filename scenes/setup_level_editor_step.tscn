@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://c6f4dodspp5d6"]
+
+[ext_resource type="Script" uid="uid://b5ep7txwr36oj" path="res://scenes/setup_level_editor_step.gd" id="1_hgffi"]
+
+[node name="SetupLevelEditorStep" type="Control" unique_id=911330252]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hgffi")
+tile_placement = "res://scenes/tile_placement_step.tscn"
+
+[node name="Label" type="Label" parent="." unique_id=2103725305]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="LoadSceneButton" type="Button" parent="." unique_id=1618458605]
+layout_mode = 0
+anchor_left = 0.7265625
+anchor_top = 0.86944443
+anchor_right = 0.975
+anchor_bottom = 0.95555556
+text = "Load existing scene
+"
+metadata/_edit_use_anchors_ = true
+
+[node name="LoadSceneDialogue" type="FileDialog" parent="LoadSceneButton" unique_id=1281700814]
+oversampling_override = 1.0
+title = "Load Scene"
+position = Vector2i(10, 36)
+size = Vector2i(600, 320)
+file_mode = 0
+display_mode = 1
+root_subfolder = "res://saved_scenes/"
+filters = PackedStringArray("*.tscn")
+
+[node name="LevelSizeX" type="SpinBox" parent="." unique_id=1525418872]
+layout_mode = 0
+anchor_left = 0.021875
+anchor_top = 0.71944445
+anchor_right = 0.10993067
+anchor_bottom = 0.7859738
+offset_right = 30.144371
+offset_bottom = 7.0494385
+scale = Vector2(0.6515102, 0.77259916)
+min_value = 640.0
+max_value = 5000.0
+value = 640.0
+metadata/_edit_use_anchors_ = true
+
+[node name="LevelSizeY" type="SpinBox" parent="." unique_id=594872661]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1265625
+anchor_top = 0.71944445
+anchor_right = 0.21461816
+anchor_bottom = 0.7859738
+offset_right = 30.144371
+offset_bottom = 7.0494385
+scale = Vector2(0.6515102, 0.77259916)
+min_value = 360.0
+max_value = 5000.0
+value = 360.0
+metadata/_edit_use_anchors_ = true
+
+[node name="NewSceneButton" type="Button" parent="." unique_id=1078585449]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 310.0
+offset_right = 160.0
+offset_bottom = 341.0
+text = "Create new scene
+"
+
+[connection signal="pressed" from="LoadSceneButton" to="." method="_on_load_scene_button_pressed"]
+[connection signal="file_selected" from="LoadSceneButton/LoadSceneDialogue" to="." method="_on_load_scene_dialogue_file_selected"]
+[connection signal="pressed" from="NewSceneButton" to="." method="_on_new_scene_button_pressed"]

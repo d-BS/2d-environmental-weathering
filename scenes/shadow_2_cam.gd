@@ -20,7 +20,7 @@ func _ready() -> void:
 	$Background.set_instance_shader_parameter("scale", $Background.scale)
 	$Foreground.set_instance_shader_parameter("scale", $Foreground.scale)
 	$Midground.set_instance_shader_parameter("scale", $Midground.scale)
-	$StaticBody2D/ground.set_instance_shader_parameter("scale", $StaticBody2D/ground.scale)
+	#$StaticBody2D/ground.set_instance_shader_parameter("scale", $StaticBody2D/ground.scale)
 	subviewport.world_2d = get_viewport().find_world_2d()
 	
 	

@@ -5,6 +5,7 @@
 [resource]
 shader = ExtResource("1_bfqrh")
 shader_parameter/focal_layer = 1.0
+shader_parameter/shadow_default = true
 shader_parameter/shadow_strength = Vector3(0.1, 0.1, 0.1)
-shader_parameter/fog = Color(0.8504297, 0.74424076, 0.35921985, 1)
-shader_parameter/fog_strength = 0.1
+shader_parameter/fog = Color(0.59959185, 0.78453475, 0.8505653, 1)
+shader_parameter/fog_strength = 0.54

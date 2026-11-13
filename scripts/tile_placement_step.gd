@@ -1,10 +1,10 @@
 extends Node2D
 
-@export var playerLayer:DecorationLayer
+@export var playerLayer:CanvasLayer
 
-var camera_speed:float = 100
 var playerLayerTiles:TileMapLayer
 @export var tile_choice:OptionButton
+
 
 #options when messing with any particular layer -
 #	change bgColor 
@@ -13,10 +13,13 @@ var playerLayerTiles:TileMapLayer
 #	new layer
 #	(add property tiles? lighting / effects?)
 
+
+var level_size:Vector2i
+
 var bgLayers:Array[CanvasLayer]
 var fgLayers:Array[CanvasLayer]
 
-
+var curr_canvas:CanvasLayer
 var curr_tile_layer:TileMapLayer
 var curr_tile_source:TileSetAtlasSource
 
@@ -31,47 +34,50 @@ var mouse_tiles:Array[Vector2i] = []
 func _ready() -> void:
 	
 	
-	playerLayer.set_tiles()
+	level_size = Global.level_size
 	
-	playerLayerTiles = playerLayer.tiles
+	#playerLayer.set_tiles()
+	#$FgLayer1.set_tiles()
+	
+	fgLayers.append($FgLayer1)
+	
+	
+	playerLayerTiles = playerLayer.get_node("TileMapLayer")
+	curr_canvas = playerLayer
 	curr_tile_layer = playerLayerTiles
 	#curr_tile_layer = $TileMapLayer
 	curr_tile_source = curr_tile_layer.tile_set.get_source(0)
 	
+	
 	setup_tile_dropdown(curr_tile_source)
 	
+	setup_layer_dropdown()
+	
+	queue_redraw()
 	
 	pass # Replace with function body.
+
+
+func _draw() -> void:
+	
+	draw_rect(Rect2i(Vector2i.ZERO, level_size), Color.AQUA, false)
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	
-	
-	
-	
-	if Input.is_action_pressed("arrow_down"):
-		
-		$Camera2D.position.y += camera_speed * delta
-		
-	if Input.is_action_pressed("arrow_up"):
-		
-		$Camera2D.position.y -= camera_speed * delta
-		
-	if Input.is_action_pressed("arrow_left"):
-		
-		$Camera2D.position.x -= camera_speed * delta
-		
-	if Input.is_action_pressed("arrow_right"):
-		
-		$Camera2D.position.x += camera_speed * delta
 	pass
 
 func _unhandled_input(event: InputEvent) -> void:
 	
+	
+	var mouse_pos:Vector2i = curr_tile_layer.get_local_mouse_position() / 20
+	
+	
 	if event.is_action("rclick"):
 		
-		curr_tile_layer.erase_cell(get_global_mouse_position() / 20)
+		curr_tile_layer.erase_cell(mouse_pos)
 		
 	
 	
@@ -80,19 +86,15 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 		mouse_down = true
 		mouse_tiles = []
-		mouse_tiles.append(get_global_mouse_position() / 20)
+		mouse_tiles.append(mouse_pos)
 		
 		curr_tile_layer.set_cell(mouse_tiles[0], 0, curr_placing_tile)
-		
-		
 		
 		
 	
 	
 	if mouse_down:
 		
-		
-		var mouse_pos:Vector2i = get_global_mouse_position() / 20
 		
 		if(mouse_pos != mouse_tiles.back()):
 			mouse_tiles.append(mouse_pos)
@@ -130,6 +132,21 @@ func setup_tile_dropdown(tile_source: TileSetAtlasSource):
 		
 	
 
+func setup_layer_dropdown():
+	
+	for f in fgLayers:
+		
+		
+		pass
+	
+	$UILayer/LayerChoice.add_item("PlayerLayer", 1)
+	$UILayer/LayerChoice.add_item("FgLayer1", .5)
+	
+	
+	
+	pass
+
+
 ## probably not needed, remove later
 func get_neighborhood(cell:Vector2i) -> Array[Vector2i]:
 	
@@ -165,7 +182,6 @@ func _on_tile_choice_item_selected(index: int) -> void:
 	pass # Replace with function body.
 
 
-
 ## this function converts every layer to colordata,
 ## extracts the collision polygons, and swaps to the new state
 func _on_rasterize_button_pressed() -> void:
@@ -186,6 +202,7 @@ func _on_rasterize_button_pressed() -> void:
 	to_rasterize.append_array(bgLayers)
 	to_rasterize.append_array(fgLayers)
 	
+	Global.level_size = level_size
 	Global.passed_image = []
 	
 	for l in to_rasterize:
@@ -197,10 +214,9 @@ func _on_rasterize_button_pressed() -> void:
 		remove_child(l)
 		subviewport.add_child(l)
 		
-		#later, we will make this be however large the texture is,
-		#so that they can be arbitrarily large.
-		#for now, the screen size is good enough
-		subviewport.size = Vector2i(640, 360)#tile_to_move.get_used_rect().size * tile_to_move.tile_set.tile_size
+		#this will need to be updated so that it scales based on how
+		#far back the layer is
+		subviewport.size = level_size
 		
 		await RenderingServer.frame_post_draw
 		await RenderingServer.frame_post_draw
@@ -224,7 +240,7 @@ func _on_rasterize_button_pressed() -> void:
 	var q_shape = RectangleShape2D.new()
 	
 	#this should be whatever the level size is 
-	q_shape.size = Vector2(640, 360) * 10
+	q_shape.size = level_size * 3
 	query.shape_rid = q_shape
 	#this may have to be updated
 	query.transform = playerLayerTiles.global_transform
@@ -251,5 +267,18 @@ func _on_rasterize_button_pressed() -> void:
 	
 	
 	Global.set_scene("res://scenes/weathering_step.tscn")
+	
+	pass # Replace with function body.
+
+
+func _on_layer_choice_item_selected(index: int) -> void:
+	
+	if index == 0:
+		curr_canvas = playerLayer
+		curr_tile_layer = playerLayerTiles
+	else:
+		curr_canvas = fgLayers[0]
+		curr_tile_layer = curr_canvas.get_node("TileMapLayer")
+	
 	
 	pass # Replace with function body.

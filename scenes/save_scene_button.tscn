@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://b42mpkkx7l37y"]
+
+[ext_resource type="Script" uid="uid://dsr4wikb068u5" path="res://scenes/save_scene_button.gd" id="1_wh3q3"]
+
+[node name="SaveSceneButton" type="Button" unique_id=837425447]
+offset_left = 587.00006
+offset_top = 40.0
+offset_right = 631.00006
+offset_bottom = 71.0
+scale = Vector2(0.7472447, 0.7283794)
+text = "Save"
+script = ExtResource("1_wh3q3")
+
+[node name="SaveSceneDialogue" type="FileDialog" parent="." unique_id=118020057]
+oversampling_override = 1.0
+position = Vector2i(10, 36)
+size = Vector2i(600, 320)
+display_mode = 1
+root_subfolder = "res://saved_scenes/"
+filters = PackedStringArray("*.tscn")
+
+[connection signal="file_selected" from="SaveSceneDialogue" to="." method="_on_save_scene_dialogue_file_selected"]

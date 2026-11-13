@@ -6,7 +6,10 @@ uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_n
 uniform sampler2D shadowtex : repeat_disable, filter_nearest;
 
 uniform float focal_layer = 1.0;
+
+uniform bool shadow_default = false;
 uniform vec3 shadow_strength = vec3(0.1, 0.1, 0.1);
+
 uniform vec4 fog : source_color = vec4(.75, .75, .75, 1.0);
 uniform float fog_strength;
 
@@ -18,6 +21,10 @@ varying float shadow_pass;
 varying vec2 light_uv;
 varying mat4 model_matrix;
 varying vec2 vertex_pos;
+
+vec4 lerp(vec4 start, vec4 end, float t){
+	return (1.0 - t) * start + t * end;
+}
 
 vec2 layer_transform(vec2 v, vec3 eye, float intralayer_depth){
 	
@@ -106,14 +113,18 @@ void fragment() {
 		//maybe this will be more sophisticated in the future, but this is
 		//good enough for now
 		float occluded = (clamp(light_uv, vec2(0.0), vec2(1.0)) != light_uv)
-						? 0.0 : texture(shadowtex, light_uv).r;
+						? shadow_default ? 999.9 : 0.0 : texture(shadowtex, light_uv).r;
 		
 		if (occluded > layer + shadow_bias)
 			COLOR.rgb *= shadow_strength;
 		//COLOR.a = COLOR.a > .5 ? 1.0 : 0.0;
 		
 		
-		COLOR = (fog * fog_strength + COLOR * layer) / (fog_strength + layer);
+		
+		COLOR = lerp(COLOR, fog, clamp(fog_strength/layer - fog_strength, .0, 1.0));
+		
+		
+		//COLOR = (fog * fog_strength + COLOR * layer) / (fog_strength + layer);
 		
 		
 	}

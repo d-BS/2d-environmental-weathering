@@ -6,6 +6,7 @@ var parallax_mat:ShaderMaterial = preload("res://assets/parallax_material.tres")
 
 ## Images which we pass between scenes
 var passed_image:Array[Image] = []
+var level_size:Vector2i = Vector2i(640 * 2, 360)
 
 var pLayer_collision_polys:Array[PackedVector2Array] = []
 
@@ -26,11 +27,13 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	
-	if Input.is_action_just_pressed("R"):
-		_deferred_reset_scene.call_deferred()
-	
 	pass
 
+func _unhandled_input(event: InputEvent) -> void:
+	
+	if event.is_action_pressed("R"):
+		_deferred_reset_scene.call_deferred()
+	
 
 ## changes the scene to the given path
 func set_scene(path:String):

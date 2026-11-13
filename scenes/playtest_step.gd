@@ -5,8 +5,14 @@ extends Node
 func _ready() -> void:
 	
 	
+	
 	$Sprite2D.texture = ImageTexture.create_from_image(Global.passed_image[0])
-	$Sprite2D.position = Vector2(640, 360) / 2
+	$Sprite2D.offset = Global.level_size / 2
+	
+	$RigidBody2D/Camera2D.limit_bottom = Global.level_size.y
+	$RigidBody2D/Camera2D.limit_right = Global.level_size.x
+	$RigidBody2D/Camera2D.limit_top = 0
+	$RigidBody2D/Camera2D.limit_left = 0
 	
 	#var running_total:Array[PackedVector2Array] = [Global.pLayer_collision_polys[0]]
 	
@@ -24,7 +30,7 @@ func _ready() -> void:
 		
 		var poly:CollisionPolygon2D = CollisionPolygon2D.new()
 		poly.polygon = p
-		$StaticBody2D.add_child(poly)
+		$LevelCollision.add_child(poly)
 		
 	
 	#$StaticBody2D.position = Vector2(640, 360) / 2

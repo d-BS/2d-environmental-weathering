@@ -38,6 +38,7 @@ func _ready() -> void:
 		
 	else:
 		
+		map_size = Global.level_size
 		image_data = rgba8_bytes_to_Color(Global.passed_image[0].get_data())
 		image = Image.create_from_data(map_size.x, map_size.y, false, Image.FORMAT_RGBAF, image_data.to_byte_array())
 		
