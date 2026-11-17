@@ -2,14 +2,27 @@
 
 [ext_resource type="Script" uid="uid://c20xvq202o2o8" path="res://scenes/playtest_step.gd" id="1_cryet"]
 [ext_resource type="PackedScene" uid="uid://dsg45u5q0w5ui" path="res://scenes/sampleController.tscn" id="2_0xmld"]
+[ext_resource type="Material" uid="uid://do3e73qlii6qi" path="res://assets/parallax_material.tres" id="2_5fhte"]
+[ext_resource type="Texture2D" uid="uid://foalsjy2bilv" path="res://assets/SampleBg.png" id="3_644km"]
+[ext_resource type="Script" uid="uid://bbh3jhl5lsyt" path="res://scripts/camera_2d.gd" id="3_l3nde"]
 [ext_resource type="PackedScene" uid="uid://b42mpkkx7l37y" path="res://scenes/save_scene_button.tscn" id="3_l7gxf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4sp5u"]
 
-[node name="PlaytestStep" type="Node" unique_id=669916466]
+[node name="PlaytestStep" type="Node" unique_id=669916466 node_paths=PackedStringArray("main_cam")]
 script = ExtResource("1_cryet")
+main_cam = NodePath("RigidBody2D/Camera2D")
+
+[node name="Background" type="Sprite2D" parent="." unique_id=959734309]
+material = ExtResource("2_5fhte")
+instance_shader_parameters/layer = 0.5
+instance_shader_parameters/scale = Vector2(28.740837, 15.502649)
+position = Vector2(346, 197)
+scale = Vector2(3.509423, 2.641338)
+texture = ExtResource("3_644km")
 
 [node name="RigidBody2D" parent="." unique_id=2126776699 instance=ExtResource("2_0xmld")]
+material = ExtResource("2_5fhte")
 position = Vector2(44, 34)
 
 [node name="Camera2D" type="Camera2D" parent="RigidBody2D" unique_id=1566670875]
@@ -19,8 +32,7 @@ rotation_smoothing_speed = 0.0
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
 editor_draw_drag_margin = true
-
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=621546775]
+script = ExtResource("3_l3nde")
 
 [node name="LevelCollision" type="StaticBody2D" parent="." unique_id=1673243449]
 
@@ -47,3 +59,18 @@ offset_left = 593.0
 offset_top = 10.0
 offset_right = 637.0
 offset_bottom = 41.0
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=1401212663]
+handle_input_locally = false
+snap_2d_transforms_to_pixel = true
+snap_2d_vertices_to_pixel = true
+use_hdr_2d = true
+canvas_item_default_texture_filter = 0
+size = Vector2i(640, 360)
+render_target_update_mode = 4
+
+[node name="Camera2D" type="Camera2D" parent="SubViewport" unique_id=1483197497]
+visibility_layer = 3
+position = Vector2(290, 222)
+anchor_mode = 0
+zoom = Vector2(1.001, 1.001)

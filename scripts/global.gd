@@ -6,6 +6,7 @@ var parallax_mat:ShaderMaterial = preload("res://assets/parallax_material.tres")
 
 ## Images which we pass between scenes
 var passed_image:Array[Image] = []
+var passed_scale:PackedFloat32Array = []
 var level_size:Vector2i = Vector2i(640 * 2, 360)
 
 var pLayer_collision_polys:Array[PackedVector2Array] = []

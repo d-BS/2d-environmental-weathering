@@ -38,7 +38,7 @@ func _ready() -> void:
 	
 	#playerLayer.set_tiles()
 	#$FgLayer1.set_tiles()
-	
+	fgLayers.clear()
 	fgLayers.append($FgLayer1)
 	
 	
@@ -54,6 +54,7 @@ func _ready() -> void:
 	setup_layer_dropdown()
 	
 	queue_redraw()
+	
 	
 	pass # Replace with function body.
 
@@ -72,7 +73,14 @@ func _process(delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	
 	
-	var mouse_pos:Vector2i = curr_tile_layer.get_local_mouse_position() / 20
+	
+	#this is such a mess, but it works well enough for now
+	var mouse_pos:Vector2i = (curr_canvas.get_final_transform() * curr_tile_layer.get_local_mouse_position() \
+							- Vector2(640/2.0, 360/2.0)) \
+							/curr_canvas.follow_viewport_scale \
+							/ 20 \
+							+ $Camera2D.position / 20
+	
 	
 	
 	if event.is_action("rclick"):
@@ -90,11 +98,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 		curr_tile_layer.set_cell(mouse_tiles[0], 0, curr_placing_tile)
 		
-		
+	
 	
 	
 	if mouse_down:
-		
 		
 		if(mouse_pos != mouse_tiles.back()):
 			mouse_tiles.append(mouse_pos)
@@ -138,6 +145,8 @@ func setup_layer_dropdown():
 		
 		
 		pass
+	
+	$UILayer/LayerChoice.clear()
 	
 	$UILayer/LayerChoice.add_item("PlayerLayer", 1)
 	$UILayer/LayerChoice.add_item("FgLayer1", .5)
@@ -199,11 +208,19 @@ func _on_rasterize_button_pressed() -> void:
 	
 	
 	var to_rasterize:Array[CanvasLayer] = [playerLayer]
+	Global.passed_scale = [1.0]
+	
 	to_rasterize.append_array(bgLayers)
+	for l in bgLayers:
+		Global.passed_scale.append(l.follow_viewport_scale)
+	
 	to_rasterize.append_array(fgLayers)
+	for l in fgLayers:
+		Global.passed_scale.append(l.follow_viewport_scale)
 	
 	Global.level_size = level_size
 	Global.passed_image = []
+	
 	
 	for l in to_rasterize:
 		
@@ -213,6 +230,8 @@ func _on_rasterize_button_pressed() -> void:
 		
 		remove_child(l)
 		subviewport.add_child(l)
+		
+		l.follow_viewport_scale = 1.0
 		
 		#this will need to be updated so that it scales based on how
 		#far back the layer is
@@ -229,7 +248,6 @@ func _on_rasterize_button_pressed() -> void:
 			return
 		
 		Global.passed_image.append(buffer_image)
-		
 		pass
 	
 	
@@ -258,12 +276,17 @@ func _on_rasterize_button_pressed() -> void:
 		
 		var pts_to_return:PackedVector2Array = []
 		
+		#var merge:bool = false
+		
 		for p in quad_pts:
 			pts_to_return.append(-p * b_transform * -1)
+		
 		
 		Global.pLayer_collision_polys.append(pts_to_return)
 		
 		pass
+	
+	
 	
 	
 	Global.set_scene("res://scenes/weathering_step.tscn")

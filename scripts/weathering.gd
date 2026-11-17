@@ -42,7 +42,6 @@ func _ready() -> void:
 		image_data = rgba8_bytes_to_Color(Global.passed_image[0].get_data())
 		image = Image.create_from_data(map_size.x, map_size.y, false, Image.FORMAT_RGBAF, image_data.to_byte_array())
 		
-		#print(Global.passed_image)
 		
 		pass
 	
@@ -224,8 +223,8 @@ func rgba8_bytes_to_Color(img:PackedByteArray) -> PackedColorArray:
 
 func _on_playtest_step_buttton_pressed() -> void:
 	
-	Global.passed_image = []
-	Global.passed_image.append(image)
+	#Global.passed_image = []
+	Global.passed_image[0] = image
 	
 	Global.set_scene("res://scenes/playtest_step.tscn")
 	

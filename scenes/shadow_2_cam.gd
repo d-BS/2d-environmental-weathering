@@ -14,7 +14,6 @@ func _ready() -> void:
 	#$Background.set_instance_shader_parameter("layer", 2)
 	
 	subviewport.get_node("Camera2D").zoom = Vector2(1.000001, 1.00000)
-	
 	$Background.material.set_shader_parameter("shadowtex", subviewport.get_texture())
 	
 	$Background.set_instance_shader_parameter("scale", $Background.scale)
