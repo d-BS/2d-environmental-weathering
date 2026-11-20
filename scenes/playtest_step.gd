@@ -5,11 +5,7 @@ extends Node
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
-	#shadow setup
-	$SubViewport.get_node("Camera2D").zoom = Vector2(1.000001, 1.00000)
-	$Background.material.set_shader_parameter("shadowtex", $SubViewport.get_texture())
-	
-	
+	#$ShadowCast.world_2d = get_viewport().find_world_2d()
 	
 	for i in Global.passed_image.size():
 		
@@ -22,8 +18,14 @@ func _ready() -> void:
 		new_sprite.material = Global.parallax_mat
 		new_sprite.set_instance_shader_parameter("layer", Global.passed_scale[i])
 		
-		add_child(BackBufferCopy.new())
+		var bbuffer:BackBufferCopy = BackBufferCopy.new()
+		add_child(bbuffer)
+		bbuffer.set_owner(self)
+		
+		
 		add_child(new_sprite)
+		new_sprite.set_owner(self)
+		
 		
 		#new_layer.follow_viewport_scale = Global.passed_scale[i]
 		#new_layer.follow_viewport_enabled = true
@@ -33,20 +35,11 @@ func _ready() -> void:
 		
 	
 	
-	$RigidBody2D/Camera2D.limit_bottom = Global.level_size.y
-	$RigidBody2D/Camera2D.limit_right = Global.level_size.x
-	$RigidBody2D/Camera2D.limit_top = 0
-	$RigidBody2D/Camera2D.limit_left = 0
+	main_cam.limit_bottom = Global.level_size.y
+	main_cam.limit_right = Global.level_size.x
+	main_cam.limit_top = 0
+	main_cam.limit_left = 0
 	
-	#var running_total:Array[PackedVector2Array] = [Global.pLayer_collision_polys[0]]
-	
-	
-	#for p in Global.pLayer_collision_polys:
-		
-	#	running_total = Geometry2D.merge_polygons(p, running_total[0])
-		
-		
-		
 	
 	
 	for p in Global.pLayer_collision_polys:
@@ -58,6 +51,7 @@ func _ready() -> void:
 		poly.polygon = p
 		
 		$LevelCollision.add_child(poly)
+		poly.set_owner(self)
 		
 	
 	#$StaticBody2D.position = Vector2(640, 360) / 2
@@ -69,12 +63,4 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	
-	
-	
-	#maintain shadows
-	#main_cam.get_screen_center_position()
-	var cam_pos:Vector2 = main_cam.global_position / Vector2(640, 360) - Vector2(.5, .5)
-	Global.parallax_mat.set_shader_parameter("camera_position", cam_pos)
-	
-	$SubViewport.get_node("Camera2D").position = main_cam.global_position - Vector2(640, 360) / 2
 	pass

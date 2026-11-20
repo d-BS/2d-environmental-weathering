@@ -5,6 +5,7 @@ global uniform vec3 camera_position;
 uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest;
 uniform sampler2D shadowtex : repeat_disable, filter_nearest;
 
+
 uniform float focal_layer = 1.0;
 
 uniform bool shadow_default = false;
@@ -87,6 +88,14 @@ void fragment() {
 	
 	float shadow_bias = .0;
 	
+	//in the future, the COLOR.a channel will store intralayer_depth
+	//for now, well just say darker pixels are futher back
+	//range should be -1 <= ilDepth <= 1
+	float il_depth = (COLOR.r + COLOR.g + COLOR.b) / 1.5 - 1.0;
+	
+	
+	
+	
 	//this branch is for the shadow cam
 	if (shadow_pass > 0.5) {
 		if (COLOR.a < 0.1)
@@ -98,12 +107,7 @@ void fragment() {
 	//this branch is for the main viewport
 	else {
 		
-		
-		//in the future, the COLOR.a channel will store intralayer_depth
-		//for now, well just say darker pixels are futher back
-		//range should be -1 <= ilDepth <= 1
-		float il_depth = 0.0;//(COLOR.r + COLOR.g + COLOR.b) / 1.5 - 1.0;
-		
+		//find uv coords where we project onto shadowtex
 		vec2 lw = (model_matrix * vec4(layer_transform(vertex_pos, light_pos, il_depth), 0.0, 1.0)).xy;
 		light_uv = (lw - camera_position.xy) / vec2(640.0, 360.0) + 0.5;
 		

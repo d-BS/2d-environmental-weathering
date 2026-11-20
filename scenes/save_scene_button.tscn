@@ -17,6 +17,6 @@ position = Vector2i(10, 36)
 size = Vector2i(600, 320)
 display_mode = 1
 root_subfolder = "res://saved_scenes/"
-filters = PackedStringArray("*.tscn")
+filters = PackedStringArray("*.tscn", "*.scn")
 
 [connection signal="file_selected" from="SaveSceneDialogue" to="." method="_on_save_scene_dialogue_file_selected"]

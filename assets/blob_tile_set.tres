@@ -1,12 +1,9 @@
 [gd_resource type="TileSet" format=3 uid="uid://ccousctvu8ow4"]
 
-[ext_resource type="Texture2D" uid="uid://dxhl1b0kl12cb" path="res://assets/sampleBlobTileset.svg" id="1_7ruok"]
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_4sp5u"]
-diffuse_texture = ExtResource("1_7ruok")
+[ext_resource type="Texture2D" uid="uid://calulioy6qb4o" path="res://assets/tilesetBase.png" id="1_7ruok"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_08kqv"]
-texture = SubResource("CanvasTexture_4sp5u")
+texture = ExtResource("1_7ruok")
 margins = Vector2i(10, 10)
 texture_region_size = Vector2i(20, 20)
 2:0/0 = 0

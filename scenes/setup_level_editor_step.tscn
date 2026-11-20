@@ -29,13 +29,13 @@ metadata/_edit_use_anchors_ = true
 
 [node name="LoadSceneDialogue" type="FileDialog" parent="LoadSceneButton" unique_id=1281700814]
 oversampling_override = 1.0
-title = "Load Scene"
+title = "Open a File"
 position = Vector2i(10, 36)
 size = Vector2i(600, 320)
 file_mode = 0
 display_mode = 1
 root_subfolder = "res://saved_scenes/"
-filters = PackedStringArray("*.tscn")
+filters = PackedStringArray("*.tscn", "*.scn")
 
 [node name="LevelSizeX" type="SpinBox" parent="." unique_id=1525418872]
 layout_mode = 0

@@ -126,12 +126,10 @@ collision_base_size = 0.0
 process_material = SubResource("ParticleProcessMaterial_4sp5u")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1157682258]
-visible = false
 use_parent_material = true
 shape = SubResource("CircleShape2D_7ruok")
 
 [node name="DampedSpringJoint2D" type="DampedSpringJoint2D" parent="." unique_id=120686098]
-visible = false
 use_parent_material = true
 node_a = NodePath("..")
 node_b = NodePath("../Feet")

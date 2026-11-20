@@ -24,7 +24,6 @@ var update_tex:bool = false
 func _ready() -> void:
 	
 	
-	
 	#image_data[image_data.size()/2] = Vector4(0, 0, 0, 1)
 	
 	if Global.passed_image == []:
@@ -150,7 +149,7 @@ func weather_step(i:int, img_temp:PackedColorArray):
 
 func slime_step(i:int, img_temp:PackedColorArray):
 	
-	if(image_data[i].a != 0.0):
+	if(image_data[i].a == 1):
 		return
 	
 	var neighbors:Array[Vector2i] = [Vector2i.UP, Vector2i.DOWN, Vector2i.LEFT, Vector2i.RIGHT]
@@ -161,8 +160,8 @@ func slime_step(i:int, img_temp:PackedColorArray):
 		if nay.x >= map_size.x || nay.x < 0 || nay.y >= map_size.y || nay.y < 0:
 			continue
 		
-		if image_data[i + n.x + n.y * map_size.x].a != 0:
-			img_temp[i].a = 1
+		if image_data[i + n.x + n.y * map_size.x].a == 1:
+			img_temp[i] = image_data[i + n.x + n.y * map_size.x]
 			return
 		
 	

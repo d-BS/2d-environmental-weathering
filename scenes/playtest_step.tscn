@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://dsg45u5q0w5ui" path="res://scenes/sampleController.tscn" id="2_0xmld"]
 [ext_resource type="Material" uid="uid://do3e73qlii6qi" path="res://assets/parallax_material.tres" id="2_5fhte"]
 [ext_resource type="Texture2D" uid="uid://foalsjy2bilv" path="res://assets/SampleBg.png" id="3_644km"]
-[ext_resource type="Script" uid="uid://bbh3jhl5lsyt" path="res://scripts/camera_2d.gd" id="3_l3nde"]
 [ext_resource type="PackedScene" uid="uid://b42mpkkx7l37y" path="res://scenes/save_scene_button.tscn" id="3_l7gxf"]
+[ext_resource type="PackedScene" uid="uid://dypmutkugf46t" path="res://scenes/shadow_cast.tscn" id="6_5fhte"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4sp5u"]
 
@@ -32,7 +32,6 @@ rotation_smoothing_speed = 0.0
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
 editor_draw_drag_margin = true
-script = ExtResource("3_l3nde")
 
 [node name="LevelCollision" type="StaticBody2D" parent="." unique_id=1673243449]
 
@@ -60,17 +59,5 @@ offset_top = 10.0
 offset_right = 637.0
 offset_bottom = 41.0
 
-[node name="SubViewport" type="SubViewport" parent="." unique_id=1401212663]
-handle_input_locally = false
-snap_2d_transforms_to_pixel = true
-snap_2d_vertices_to_pixel = true
-use_hdr_2d = true
-canvas_item_default_texture_filter = 0
-size = Vector2i(640, 360)
-render_target_update_mode = 4
-
-[node name="Camera2D" type="Camera2D" parent="SubViewport" unique_id=1483197497]
-visibility_layer = 3
-position = Vector2(290, 222)
-anchor_mode = 0
-zoom = Vector2(1.001, 1.001)
+[node name="ShadowCast" parent="." unique_id=765401421 node_paths=PackedStringArray("main_cam") instance=ExtResource("6_5fhte")]
+main_cam = NodePath("../RigidBody2D/Camera2D")
