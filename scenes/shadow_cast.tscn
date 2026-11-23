@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dypmutkugf46t"]
 
-[ext_resource type="Script" uid="uid://d01ua8tbhlu5c" path="res://scenes/shadow_cast_viewport.gd" id="1_1at1t"]
+[ext_resource type="Script" uid="uid://d01ua8tbhlu5c" path="res://scripts/shadow_cast_viewport.gd" id="1_1at1t"]
 
 [node name="ShadowCast" type="SubViewport" unique_id=765401421 node_paths=PackedStringArray("main_cam")]
 handle_input_locally = false

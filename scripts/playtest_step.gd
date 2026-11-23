@@ -1,12 +1,12 @@
 extends Node
 
 @export var main_cam:Camera2D
+@export var player:RigidBody2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
 	#$ShadowCast.world_2d = get_viewport().find_world_2d()
-	
 	for i in Global.passed_image.size():
 		
 		#var new_layer:CanvasLayer = CanvasLayer.new()
@@ -18,6 +18,8 @@ func _ready() -> void:
 		new_sprite.material = Global.parallax_mat
 		new_sprite.set_instance_shader_parameter("layer", Global.passed_scale[i])
 		
+		
+		
 		var bbuffer:BackBufferCopy = BackBufferCopy.new()
 		add_child(bbuffer)
 		bbuffer.set_owner(self)
@@ -26,6 +28,8 @@ func _ready() -> void:
 		add_child(new_sprite)
 		new_sprite.set_owner(self)
 		
+		if i == Global.playerLayer:
+			move_child(player, -1)
 		
 		#new_layer.follow_viewport_scale = Global.passed_scale[i]
 		#new_layer.follow_viewport_enabled = true
@@ -34,6 +38,11 @@ func _ready() -> void:
 		#add_child(new_layer)
 		
 	
+	#player.set_layer(Global.passed_scale[Global.playerLayer])
+	
+	
+	
+	RenderingServer.global_shader_parameter_set("light_pos", Vector3(-10, -10, 0))
 	
 	main_cam.limit_bottom = Global.level_size.y
 	main_cam.limit_right = Global.level_size.x

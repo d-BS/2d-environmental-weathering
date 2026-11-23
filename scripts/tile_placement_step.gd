@@ -16,8 +16,8 @@ var playerLayerTiles:TileMapLayer
 
 var level_size:Vector2i
 
-var bgLayers:Array[CanvasLayer]
-var fgLayers:Array[CanvasLayer]
+## Holds each decoration layer, and is sorted by depth: closer to camera means later in array
+var layers:Array[CanvasLayer]
 
 var curr_canvas:CanvasLayer
 var curr_tile_layer:TileMapLayer
@@ -36,10 +36,7 @@ func _ready() -> void:
 	
 	level_size = Global.level_size
 	
-	#playerLayer.set_tiles()
-	#$FgLayer1.set_tiles()
-	fgLayers.clear()
-	fgLayers.append($FgLayer1)
+	
 	
 	
 	playerLayerTiles = playerLayer.get_node("TileMapLayer")
@@ -48,6 +45,8 @@ func _ready() -> void:
 	#curr_tile_layer = $TileMapLayer
 	curr_tile_source = curr_tile_layer.tile_set.get_source(0)
 	
+	$UILayer/LayerScaleBox.value = curr_canvas.follow_viewport_scale
+	
 	
 	setup_tile_dropdown(curr_tile_source)
 	
@@ -55,6 +54,7 @@ func _ready() -> void:
 	
 	queue_redraw()
 	
+	#$UILayer/LayerScaleBox.value = curr_canvas.follow_viewport_scale
 	
 	pass # Replace with function body.
 
@@ -66,7 +66,7 @@ func _draw() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	
 	pass
 
@@ -127,6 +127,7 @@ func _unhandled_input(event: InputEvent) -> void:
 ## to expand in complexity
 func setup_tile_dropdown(tile_source: TileSetAtlasSource):
 	
+	tile_choice.clear()
 	
 	var atlasImage:Image = tile_source.texture.get_image()
 	
@@ -138,19 +139,39 @@ func setup_tile_dropdown(tile_source: TileSetAtlasSource):
 		tile_choice.add_icon_item(tile_texture, "", i)
 		
 	
+	
+	
 
 func setup_layer_dropdown():
 	
-	for f in fgLayers:
-		
-		
-		pass
-	
+	#empty list
 	$UILayer/LayerChoice.clear()
 	
-	$UILayer/LayerChoice.add_item("PlayerLayer", 1)
-	$UILayer/LayerChoice.add_item("FgLayer1", .5)
+	#this list keeps them in their original order
+	var layers_children:Array[CanvasLayer]
+	layers_children.append_array($Layers.get_children())
 	
+	#this list sorts them by depth
+	layers = layers_children.duplicate()
+	layers.sort_custom(custom_canvas_sort)
+	
+	
+	for l in layers.size():
+		
+		
+		if layers[l] == playerLayer:
+			$UILayer/LayerChoice.add_item("PlayerLayer", 0)
+		else:
+			$UILayer/LayerChoice.add_item(str("Layer#", l), layers_children.find(layers[l]))
+		
+		#sets rendering order
+		layers[l].layer = l
+		
+		#makes sure the same layer is selected
+		if layers[l] == curr_canvas:
+			$UILayer/LayerChoice.select(l)
+		
+		pass
 	
 	
 	pass
@@ -207,28 +228,30 @@ func _on_rasterize_button_pressed() -> void:
 	sub_container.add_child(subviewport)
 	
 	
-	var to_rasterize:Array[CanvasLayer] = [playerLayer]
-	Global.passed_scale = [1.0]
 	
-	to_rasterize.append_array(bgLayers)
-	for l in bgLayers:
-		Global.passed_scale.append(l.follow_viewport_scale)
 	
-	to_rasterize.append_array(fgLayers)
-	for l in fgLayers:
-		Global.passed_scale.append(l.follow_viewport_scale)
+	var to_rasterize:Array[CanvasLayer] = layers
+	Global.passed_scale = []
+	
+	
 	
 	Global.level_size = level_size
 	Global.passed_image = []
 	
 	
+	
 	for l in to_rasterize:
 		
-		for c in subviewport.get_children(false):
+		Global.passed_scale.append(l.follow_viewport_scale)
+		
+		if l == playerLayer:
+			Global.playerLayer = to_rasterize.find(l)
+		
+		for c in subviewport.get_children():
 			subviewport.remove_child(c)
 			add_child(c)
 		
-		remove_child(l)
+		$Layers.remove_child(l)
 		subviewport.add_child(l)
 		
 		l.follow_viewport_scale = 1.0
@@ -248,6 +271,7 @@ func _on_rasterize_button_pressed() -> void:
 			return
 		
 		Global.passed_image.append(buffer_image)
+		
 		pass
 	
 	
@@ -296,12 +320,58 @@ func _on_rasterize_button_pressed() -> void:
 
 func _on_layer_choice_item_selected(index: int) -> void:
 	
-	if index == 0:
-		curr_canvas = playerLayer
-		curr_tile_layer = playerLayerTiles
-	else:
-		curr_canvas = fgLayers[0]
-		curr_tile_layer = curr_canvas.get_node("TileMapLayer")
+	curr_canvas = $Layers.get_child($UILayer/LayerChoice.get_item_id(index))
+	curr_tile_layer = curr_canvas.get_child(0)
 	
+	
+	$UILayer/LayerScaleBox.value = curr_canvas.follow_viewport_scale
+	
+	pass # Replace with function body.
+
+
+func _on_layer_scale_box_value_changed(value: float) -> void:
+	
+	#for now, the playerlayer must remain @ 1.0, as the player sprite doesn't like the parallax system
+	if curr_canvas == playerLayer:
+		$UILayer/LayerScaleBox.value = 1.0
+		return
+	
+	
+	curr_canvas.follow_viewport_scale = value
+	
+	setup_layer_dropdown()
+	
+	pass # Replace with function body.
+
+
+## maybe make this a lambda func
+func custom_canvas_sort(a:CanvasLayer, b:CanvasLayer) -> bool:
+	return a.follow_viewport_scale < b.follow_viewport_scale
+
+
+
+func _on_add_layer_button_pressed() -> void:
+	
+	var new_layer:CanvasLayer = CanvasLayer.new()
+	new_layer.follow_viewport_enabled = true
+	
+	var new_tilemap:TileMapLayer = TileMapLayer.new()
+	new_tilemap.tile_set = load("res://assets/blob_tile_set.tres")
+	new_tilemap.collision_enabled = false
+	
+	$Layers.add_child(new_layer)
+	new_layer.set_owner(self)
+	
+	new_layer.add_child(new_tilemap)
+	new_tilemap.set_owner(self)
+	
+	
+	#we select new layer, so it doesnt get lost
+	curr_canvas = new_layer
+	curr_tile_layer = curr_canvas.get_child(0)
+	$UILayer/LayerScaleBox.value = curr_canvas.follow_viewport_scale
+	
+	
+	setup_layer_dropdown()
 	
 	pass # Replace with function body.

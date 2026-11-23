@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dfmm3shc70ncl" path="res://scripts/character_body_2d.gd" id="1_su73m"]
 [ext_resource type="Texture2D" uid="uid://gav87awsucms" path="res://assets/pixil-frame-0-2.png" id="2_dhhln"]
+[ext_resource type="Material" uid="uid://do3e73qlii6qi" path="res://assets/parallax_material.tres" id="2_smb3p"]
 [ext_resource type="Texture2D" uid="uid://b0n7mii7ub7pq" path="res://assets/basic_tileset/solid.png" id="3_dhhln"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yb2f2"]
@@ -54,17 +55,22 @@ turbulence_influence_over_life = SubResource("CurveTexture_dhhln")
 [sub_resource type="CircleShape2D" id="CircleShape2D_7ruok"]
 radius = 6.0
 
-[node name="RigidBody2D" type="RigidBody2D" unique_id=2126776699 node_paths=PackedStringArray("feet")]
+[node name="RigidBody2D" type="RigidBody2D" unique_id=2126776699 node_paths=PackedStringArray("feet", "material_users")]
+collision_layer = 3
+collision_mask = 3
 mass = 0.5
 continuous_cd = 1
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_su73m")
 feet = NodePath("Feet")
+material_users = [NodePath("Feet/FrontFoot"), NodePath("TorsoSprite/Base"), NodePath("TorsoSprite/LgCog"), NodePath("TorsoSprite/SmCog"), NodePath("TorsoSprite/Frame"), NodePath("TorsoSprite/SmokeStack")]
 
 [node name="Feet" type="RigidBody2D" parent="." unique_id=118576602]
 use_parent_material = true
 position = Vector2(0, 20)
+collision_layer = 3
+collision_mask = 3
 mass = 0.75
 continuous_cd = 1
 contact_monitor = true
@@ -76,7 +82,7 @@ shape = SubResource("CircleShape2D_yb2f2")
 
 [node name="FrontFoot" type="Sprite2D" parent="Feet" unique_id=1260776691]
 modulate = Color(2.284164, 2.284164, 2.284164, 1)
-use_parent_material = true
+material = ExtResource("2_smb3p")
 texture = ExtResource("3_dhhln")
 region_enabled = true
 region_rect = Rect2(121, 48, 9, 9)
@@ -85,33 +91,33 @@ region_rect = Rect2(121, 48, 9, 9)
 use_parent_material = true
 
 [node name="Base" type="Sprite2D" parent="TorsoSprite" unique_id=634219678]
-use_parent_material = true
+material = ExtResource("2_smb3p")
 texture = ExtResource("2_dhhln")
 region_enabled = true
 region_rect = Rect2(120, 66, 16, 16)
 
 [node name="LgCog" type="Sprite2D" parent="TorsoSprite" unique_id=1257247055]
-use_parent_material = true
+material = ExtResource("2_smb3p")
 position = Vector2(1.5, 1.5)
 texture = ExtResource("2_dhhln")
 region_enabled = true
 region_rect = Rect2(123, 89, 13, 13)
 
 [node name="SmCog" type="Sprite2D" parent="TorsoSprite" unique_id=2086335352]
-use_parent_material = true
+material = ExtResource("2_smb3p")
 position = Vector2(-0.5, -4.5)
 texture = ExtResource("2_dhhln")
 region_enabled = true
 region_rect = Rect2(121, 48, 9, 9)
 
 [node name="Frame" type="Sprite2D" parent="TorsoSprite" unique_id=442173210]
-use_parent_material = true
+material = ExtResource("2_smb3p")
 texture = ExtResource("2_dhhln")
 region_enabled = true
 region_rect = Rect2(156, 47, 16, 16)
 
 [node name="SmokeStack" type="Sprite2D" parent="TorsoSprite" unique_id=974685171]
-use_parent_material = true
+material = ExtResource("2_smb3p")
 position = Vector2(-8, -1)
 texture = ExtResource("2_dhhln")
 region_enabled = true

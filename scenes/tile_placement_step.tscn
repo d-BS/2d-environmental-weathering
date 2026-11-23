@@ -1,33 +1,33 @@
 [gd_scene format=3 uid="uid://ddkg8j4i5uopt"]
 
 [ext_resource type="Script" uid="uid://bdqxuj7ya2euj" path="res://scripts/tile_placement_step.gd" id="1_eokjl"]
-[ext_resource type="Script" uid="uid://ca1t5dmg7gv1d" path="res://scripts/decoration_layer.gd" id="3_673nn"]
 [ext_resource type="Script" uid="uid://bbh3jhl5lsyt" path="res://scripts/camera_2d.gd" id="3_eokjl"]
 [ext_resource type="TileSet" uid="uid://ccousctvu8ow4" path="res://assets/blob_tile_set.tres" id="3_v61qr"]
 [ext_resource type="PackedScene" uid="uid://b42mpkkx7l37y" path="res://scenes/save_scene_button.tscn" id="4_p8gkq"]
 
 [node name="TilePlacementStep" type="Node2D" unique_id=980655069 node_paths=PackedStringArray("playerLayer", "tile_choice")]
 script = ExtResource("1_eokjl")
-playerLayer = NodePath("PlayerLayer")
+playerLayer = NodePath("Layers/PlayerLayer")
 tile_choice = NodePath("UILayer/TileChoice")
 
-[node name="PlayerLayer" type="CanvasLayer" parent="." unique_id=575618604]
-follow_viewport_enabled = true
-script = ExtResource("3_673nn")
+[node name="Layers" type="Node" parent="." unique_id=528868432]
 
-[node name="TileMapLayer" type="TileMapLayer" parent="PlayerLayer" unique_id=2108201365]
+[node name="PlayerLayer" type="CanvasLayer" parent="Layers" unique_id=575618604]
+follow_viewport_enabled = true
+
+[node name="TileMapLayer" type="TileMapLayer" parent="Layers/PlayerLayer" unique_id=2108201365]
 tile_set = ExtResource("3_v61qr")
 
-[node name="FgLayer1" type="CanvasLayer" parent="." unique_id=1048230931]
+[node name="FgLayer1" type="CanvasLayer" parent="Layers" unique_id=1048230931]
 follow_viewport_enabled = true
 follow_viewport_scale = 2.0
-script = ExtResource("3_673nn")
-distance = 0.5
 
-[node name="TileMapLayer" type="TileMapLayer" parent="FgLayer1" unique_id=1980805949]
+[node name="TileMapLayer" type="TileMapLayer" parent="Layers/FgLayer1" unique_id=1980805949]
 tile_set = ExtResource("3_v61qr")
+collision_enabled = false
 
 [node name="UILayer" type="CanvasLayer" parent="." unique_id=258644706]
+layer = 999
 
 [node name="TileChoice" type="OptionButton" parent="UILayer" unique_id=1203098408]
 anchors_preset = -1
@@ -35,6 +35,8 @@ anchor_left = 0.8953125
 anchor_top = 0.022222223
 anchor_right = 0.9859375
 anchor_bottom = 0.08888889
+tooltip_text = "Choose specific tile"
+focus_mode = 0
 mouse_behavior_recursive = 2
 mouse_default_cursor_shape = 16
 item_count = 1
@@ -43,30 +45,62 @@ metadata/_edit_use_anchors_ = true
 
 [node name="RasterizeButton" type="Button" parent="UILayer" unique_id=1041867474]
 anchors_preset = -1
-anchor_left = 0.696875
+anchor_left = 0.010937547
 anchor_top = 0.025
-anchor_right = 0.8802487
+anchor_right = 0.19431135
 anchor_bottom = 0.08700005
-offset_left = -438.99997
-offset_right = -393.35913
+offset_right = 45.640793
 offset_bottom = 8.679981
 scale = Vector2(0.71999514, 0.7200006)
+tooltip_text = "Move to rasterize step"
+focus_mode = 0
 text = "rasterize / step to fx"
+metadata/_edit_use_anchors_ = true
+
+[node name="SaveSceneButton" parent="UILayer" unique_id=837425447 instance=ExtResource("4_p8gkq")]
+anchors_preset = -1
+anchor_left = 0.0125
+anchor_top = 0.11111111
+anchor_right = 0.063873075
+anchor_bottom = 0.17383267
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 11.121231
+offset_bottom = 8.4202385
+focus_mode = 0
 metadata/_edit_use_anchors_ = true
 
 [node name="LayerChoice" type="OptionButton" parent="UILayer" unique_id=777416714]
 anchors_preset = -1
-anchor_left = 0.9203125
+anchor_left = 0.796875
 anchor_top = 0.12222222
-anchor_right = 0.9828125
+anchor_right = 0.859375
 anchor_bottom = 0.17777778
-offset_left = -79.0
-offset_right = -79.0
+tooltip_text = "Select a layer"
+focus_mode = 0
 metadata/_edit_use_anchors_ = true
 
-[node name="SaveSceneButton" parent="UILayer" unique_id=837425447 instance=ExtResource("4_p8gkq")]
-offset_left = 8.0
-offset_right = 52.0
+[node name="LayerScaleBox" type="SpinBox" parent="UILayer" unique_id=201857769]
+offset_left = 513.0
+offset_top = 14.000015
+offset_right = 599.5
+offset_bottom = 45.000015
+scale = Vector2(0.53405905, 0.53405905)
+tooltip_text = "Set the current layer's scale"
+min_value = 0.001
+max_value = 10.0
+step = 0.001
+value = 0.001
+
+[node name="AddLayerButton" type="Button" parent="UILayer" unique_id=2069764998]
+offset_left = 487.0
+offset_top = 13.0
+offset_right = 512.0
+offset_bottom = 44.0
+scale = Vector2(0.67479634, 0.61192334)
+tooltip_text = "Add new layer"
+focus_mode = 0
+text = "+"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=333895810]
 position_smoothing_enabled = true
@@ -76,3 +110,5 @@ script = ExtResource("3_eokjl")
 [connection signal="item_selected" from="UILayer/TileChoice" to="." method="_on_tile_choice_item_selected"]
 [connection signal="pressed" from="UILayer/RasterizeButton" to="." method="_on_rasterize_button_pressed"]
 [connection signal="item_selected" from="UILayer/LayerChoice" to="." method="_on_layer_choice_item_selected"]
+[connection signal="value_changed" from="UILayer/LayerScaleBox" to="." method="_on_layer_scale_box_value_changed"]
+[connection signal="pressed" from="UILayer/AddLayerButton" to="." method="_on_add_layer_button_pressed"]

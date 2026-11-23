@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c6f4dodspp5d6"]
 
-[ext_resource type="Script" uid="uid://b5ep7txwr36oj" path="res://scenes/setup_level_editor_step.gd" id="1_hgffi"]
+[ext_resource type="Script" uid="uid://b5ep7txwr36oj" path="res://scripts/setup_level_editor_step.gd" id="1_hgffi"]
 
 [node name="SetupLevelEditorStep" type="Control" unique_id=911330252]
 layout_mode = 3

@@ -3,6 +3,8 @@ extends RigidBody2D
 
 @export var feet:RigidBody2D
 
+@export var material_users:Array[CanvasItem]
+
 const SPEED = 300.0
 const JUMP_VELOCITY = -150.0
 const CROUCH_POWER = 1000
@@ -154,3 +156,9 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	
 	
 	pass
+
+func set_layer(layer:float):
+	
+	for m in material_users:
+		m.set_instance_shader_parameter("layer", layer)
+	

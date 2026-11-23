@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://cyf2746s8ukx2"]
 
-[ext_resource type="Script" uid="uid://o4d3dpw3nqge" path="res://scenes/shadow_2_cam.gd" id="1_xl4gt"]
+[ext_resource type="Script" uid="uid://o4d3dpw3nqge" path="res://scripts/shadow_2_cam.gd" id="1_xl4gt"]
 [ext_resource type="Material" uid="uid://do3e73qlii6qi" path="res://assets/parallax_material.tres" id="2_ov8vd"]
 [ext_resource type="Texture2D" uid="uid://b0n7mii7ub7pq" path="res://assets/basic_tileset/solid.png" id="2_xl4gt"]
 [ext_resource type="Texture2D" uid="uid://foalsjy2bilv" path="res://assets/SampleBg.png" id="3_o2fc2"]

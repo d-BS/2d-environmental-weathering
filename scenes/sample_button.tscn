@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://duuf1ny81gkfu"]
+
+[ext_resource type="Script" uid="uid://7ru8wl1ctf1n" path="res://scripts/sample_button.gd" id="1_b3vn7"]
+[ext_resource type="Texture2D" uid="uid://b0n7mii7ub7pq" path="res://assets/basic_tileset/solid.png" id="2_fp71k"]
+[ext_resource type="Material" uid="uid://do3e73qlii6qi" path="res://assets/parallax_material.tres" id="2_tut76"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q6l2a"]
+size = Vector2(36, 16)
+
+[sub_resource type="Animation" id="Animation_heglh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(185, 305)]
+}
+
+[sub_resource type="Animation" id="Animation_03lp1"]
+resource_name = "pressed"
+length = 3.0000000000000004
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(185, 305), Vector2(185, 313)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_crpxp"]
+_data = {
+&"RESET": SubResource("Animation_heglh"),
+&"pressed": SubResource("Animation_03lp1")
+}
+
+[node name="SampleButton" type="AnimatableBody2D" unique_id=2079238779]
+position = Vector2(185, 305)
+collision_mask = 2
+script = ExtResource("1_b3vn7")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1375144330]
+material = ExtResource("2_tut76")
+scale = Vector2(1.7999995, 0.79999965)
+texture = ExtResource("2_fp71k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=175949414]
+shape = SubResource("RectangleShape2D_q6l2a")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=509246908]
+libraries/ = SubResource("AnimationLibrary_crpxp")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1519052774]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=210764250]
+shape = SubResource("RectangleShape2D_q6l2a")
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://blj8epu7xsgmh"]
 
-[ext_resource type="Script" uid="uid://c20xvq202o2o8" path="res://scenes/playtest_step.gd" id="1_cryet"]
+[ext_resource type="Script" uid="uid://c20xvq202o2o8" path="res://scripts/playtest_step.gd" id="1_cryet"]
 [ext_resource type="PackedScene" uid="uid://dsg45u5q0w5ui" path="res://scenes/sampleController.tscn" id="2_0xmld"]
 [ext_resource type="Material" uid="uid://do3e73qlii6qi" path="res://assets/parallax_material.tres" id="2_5fhte"]
 [ext_resource type="Texture2D" uid="uid://foalsjy2bilv" path="res://assets/SampleBg.png" id="3_644km"]
@@ -9,9 +9,10 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4sp5u"]
 
-[node name="PlaytestStep" type="Node" unique_id=669916466 node_paths=PackedStringArray("main_cam")]
+[node name="PlaytestStep" type="Node" unique_id=669916466 node_paths=PackedStringArray("main_cam", "player")]
 script = ExtResource("1_cryet")
 main_cam = NodePath("RigidBody2D/Camera2D")
+player = NodePath("RigidBody2D")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=959734309]
 material = ExtResource("2_5fhte")
